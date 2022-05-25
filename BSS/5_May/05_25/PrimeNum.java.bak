@@ -18,7 +18,7 @@ public class PrimeNum {
 			if (count == 1) {					// count에 1개이상 담기면 그 수는 소수
 				System.out.print(i + " ");		// 담긴 소수인 i 의 값을 출력.
 			}
-			count = 0;							// 박스를 다시 비워주고 반복문이동.
+			count = 0;							// 박스를 다시 비워주고 상위 반복문이동 - 반복 - 출력결과 도출
 		}
 	}
 }

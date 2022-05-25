@@ -10,7 +10,7 @@ public class PrimeNum {
 	public static void main(String[] args) {
 		int count = 0;							// 나머지가 1과 자신 뿐인 수 담을 박스
 		for (int i = 2; i <= 100; i++) {		// 2부터 100까지의 수 반복문
-			for (int j = 2; j <= i; j++) {		// 첫 반복문을 2부터 100으로 나누기 * 99번
+			for (int j = 2; j <= i; j++) {		// 첫 반복문을 2부터 100으로 나누기를 반복
 				if (i % j == 0) {				// 첫 반복문의 값을 두번째 반복문으로 나눈 나머지가 0 일 때, 그 수는 소수
 					count++;					// 소수이므로 count 박스에 ++로 담기.
 				}
