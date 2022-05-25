@@ -22,7 +22,6 @@ public class LoopBreak {
 			if ( i != 25) {
 				System.out.println(i);
 			}
-			System.out.println(i);
 			i++;
 		}
 		

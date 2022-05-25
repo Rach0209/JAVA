@@ -9,7 +9,7 @@ public class LoopBreak {
 		
 		for (int i = 10; i < 20; i++) {
 			if (i % 10 == 5) {
-				continue;		// for의 증감식으로 바로 건너띈다. 밑으로 flow되지 않음.<(System.out.println(i); 대신 i++로>
+				continue;		// for의 증감식으로 바로 건너띈다. 밑으로 flow되지 않음.<(System.out.println(i); 대신 i++(증감식)로>
 			}
 			System.out.println(i);
 		}
