@@ -1,4 +1,3 @@
 # JAVA Practice space for me...
 
-just practice
-in class
+just practice <br> in class
