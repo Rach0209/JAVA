@@ -1,0 +1,22 @@
+public class TestMethod3 {					 // parameters == 개수, 타입, 순서
+	public static int getSum(int a, int b) { // () 부분 = parameters. 메소드의 입력부분 // 강력한 약속. 호출 시 꼭 필요
+		return a + b;						 // return 이 나가는 부분이면, ()부분은 들어오는 입력 부분.
+	}
+	
+	// 두 개 int 정수를 전달받아 곱 연산결과를 반환하는 메소드를 작성하고 호출해 반환값을 출력해보세요.
+	public static int getMul(int a, int b) {
+		return a * b;
+	}
+	
+	public static void main(String[] args) {
+		int sum = getSum(30, 60);
+		System.out.println(sum);
+		
+		// System.out.println(a); // parameters도 당연히 지역변수. => 컴파일 에러
+		
+		System.out.println(getSum(100,200));
+		
+		int mul = getMul(15, 10);
+		System.out.println(mul);
+	}
+}
