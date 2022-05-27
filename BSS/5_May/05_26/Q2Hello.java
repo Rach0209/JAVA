@@ -17,8 +17,7 @@ public class Q2Hello {
 		System.out.println("안녕의 개수를 출력할 정수를 입력");
 		Scanner scan = new Scanner(System.in);
 		int num = scan.nextInt();
-		int hi = num;
-		for (int i = 0; i < hi; i++) {
+		for (int i = 0; i < num; i++) {
 			System.out.println("안녕");
 		}
 	}
