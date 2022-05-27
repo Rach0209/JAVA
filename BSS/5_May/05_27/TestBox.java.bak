@@ -1,0 +1,34 @@
+public class TestBox {
+	public static void main(String[] args) {
+		Box none = null; // 참조형 변수는 null 을 참조할 수 있다.
+		// none.width = 10;
+
+		Box box1; // 앞에서 만든 Box가 참조대상으로
+		box1 = new Box(); // instance화 및 instance
+		// 가로 세로 높이의 크기 지정. Box.java에서 변수를 선언해 놓은 것에 초기화.
+		box1.width = 3;
+		box1.length = 3;
+		box1.height = 3;
+		
+		// System.out.println(box1.color); // color를 나타내는 fields가 존재하지 않음. 컴파일 에러
+		
+		Box box2 = new Box();
+		box2.width = 10;
+		box2.length = 10;
+		box2.height = 10;
+		
+		// System.out.println("부피: " + box1.volume); // 출력값 0
+		System.out.println(box1.getVolume());
+		
+		box1.printAllState(); // 기능, 동작을 나타내는 메소드에 이름을 붙여서 가져옴.
+		box2.printAllState(); // 같은 동작이지만, instance의 상태에 따라서 값이 달라진다.
+							  // 각각의 상태는 instance마다 고유하게 가지고 있기 때문.
+		
+		
+		// System.out.println(box1.width);
+		// System.out.println(box2.width);
+		
+		// box1.width = 5; // 값의 변경
+		// System.out.println(box1.width);
+	}
+}
