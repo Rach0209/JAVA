@@ -40,5 +40,9 @@ public class Q3length {
 		// getTotalLength 결과값
 		int length3 = getTotalLength("abcde", "가나다라");
 		System.out.println(length3);
+		
+		// getTotalLength 사용해서 입력받은 문자 길이 출력하기
+		int length4 = getTotalLength(user1, user2);
+		System.out.println(length4);
 	}
 }
