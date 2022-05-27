@@ -14,12 +14,12 @@ import java.util.*;
 
 public class Q1Circle {
 	public static double circleArea(double r) {
-		return 4 * (r * r * r) * (3.14 * 3.14) / 3;
+		return 3.14 * (r * r);
 	}
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("반지름의 길이를 입력");
-		double radius = scan.nextInt();
+		double radius = scan.nextDoutble();
 		double result = circleArea(radius);
 		System.out.println(result);
 	}

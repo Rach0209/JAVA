@@ -19,7 +19,7 @@ public class Q1Circle {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("반지름의 길이를 입력");
-		double radius = scan.nextInt();
+		double radius = scan.nextDouble();
 		double result = circleArea(radius);
 		System.out.println(result);
 	}
