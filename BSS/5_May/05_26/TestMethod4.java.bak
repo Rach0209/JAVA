@@ -8,6 +8,7 @@ public class TestMethod4 {
 		} else {
 			return false;
 		}
+		// return num >= 1 && num <= 100;
 	}
 
 	// 사용자가 점수 입력을 국어, 영어, 수학 하는데 (점수는 무조건 1 ~ 100사이여야함)

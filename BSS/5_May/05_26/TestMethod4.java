@@ -8,6 +8,7 @@ public class TestMethod4 {
 		} else {
 			return false;
 		}
+		// return num >= 1 && num <= 100;
 	}
 
 	// 사용자가 점수 입력을 국어, 영어, 수학 하는데 (점수는 무조건 1 ~ 100사이여야함)
@@ -30,7 +31,7 @@ public class TestMethod4 {
 		}
 		System.out.println("영어 점수를 입력하세요");
 		int eng = scan.nextInt();
-		while ( !(between(eng)) ) {				// boolean return 메소드를 사용.  
+		while ( !(between(eng)) ) {				// boolean between() ;return 메소드를 사용.  
 			System.out.println("다시 입력하세요.");	
 			eng = scan.nextInt();
 		}

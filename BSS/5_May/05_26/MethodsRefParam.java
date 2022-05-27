@@ -1,5 +1,5 @@
 // 참조형 타입의 메소드
-
+// 값의 복사
 public class MethodsRefParam {
 	public static String concat(String left, String right) {
 		return left + right;

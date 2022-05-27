@@ -10,8 +10,8 @@ public class PrimeNumbers {
 		}
 		if (count == 2) {
 			return true;		// 소수면 true, 아니면 false; true, false 표현을 위해 boolean값 넣음.
-		} else {
-			return false;
+		} else {				// boolean 값은 언제나 하나를 return 해줘야함. but if 안에서 true가 되지 않으면
+			return false;		// return값이 없는 경우가 생기기 때문에 꼭 적어야함. 그렇지 않으면 컴파일에러
 		}
 	}
 

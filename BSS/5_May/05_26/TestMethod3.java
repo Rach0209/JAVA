@@ -1,4 +1,4 @@
-public class TestMethod3 {					 // parameters == 개수, 타입, 순서
+public class TestMethod3 {					 // parameters == 개수, 타입, 순서  -- , (쉼표)로 구분
 	public static int getSum(int a, int b) { // () 부분 = parameters. 메소드의 입력부분 // 강력한 약속. 호출 시 꼭 필요
 		return a + b;						 // return 이 나가는 부분이면, ()부분은 들어오는 입력 부분.
 	}
