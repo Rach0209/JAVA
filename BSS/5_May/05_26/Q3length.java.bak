@@ -18,22 +18,10 @@ public class Q3length {
 		return sum;
 	}
 	
-	// public static void string() {
-		// int x = 0;
-		// int y = 0;
-		// for (int i = 1; i < 3; i++) {
-			// Scanner scan = new Scanner(System.in);
-			// System.out.printf("길이를 알고 싶은 문자열을 입력하쇼(%d/2)\n", i);
-			// String user1 = scan.nextLine();
-			// int length1 = user1.length();
-			// if (i == 1) {
-				// x = length1;
-			// } else {
-				// y = length1;
-			// }
-		// }
-		
-	// }
+	public static int getTotalLength(String str1, String str2) {
+		return str1.length() + str2.length();
+	}
+	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("길이를 알고 싶은 문자열을 입력하쇼(1/2)");
@@ -49,5 +37,8 @@ public class Q3length {
 		
 		
 		System.out.println(sum);
+		
+		int length3 = getTotalLength("abcde", "가나다라");
+		System.out.println(length3);
 	}
 }

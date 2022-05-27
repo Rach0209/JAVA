@@ -17,6 +17,11 @@ public class Q3length {
 		int sum = a + b;
 		return sum;
 	}
+	// 복습 만든것
+	public static int getTotalLength(String str1, String str2) {
+		return str1.length() + str2.length();
+	}
+	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("길이를 알고 싶은 문자열을 입력하쇼(1/2)");
@@ -32,5 +37,8 @@ public class Q3length {
 		
 		
 		System.out.println(sum);
+		// getTotalLength 결과값
+		int length3 = getTotalLength("abcde", "가나다라");
+		System.out.println(length3);
 	}
 }
