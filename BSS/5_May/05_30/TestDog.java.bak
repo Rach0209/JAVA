@@ -1,0 +1,14 @@
+public class TestDog {
+	public static void main(String[] args) {
+		Dog d = new Dog("까마쿤", "빠삐용", 4);
+		Dog d2 = new Dog("까망", "비숑");
+		
+		d.setName("파이어볼");
+		d.setBreed("불독");
+		d.setAge(6);
+		
+		System.out.println(d.getName());
+		System.out.println(d.getBreed());
+		System.out.println(d.getAge());
+	}
+}
