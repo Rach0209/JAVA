@@ -48,23 +48,24 @@ public class Student {
 		return math;
 	}
 	
-	public int getSum() {
-		return sum;
-	}
-	public int setSum(int sum) {
-		this.sum = sum;
-		return sum;
-	}
-	public int getAvrg() {
-		return avrg;
-	}
-	public int setAvrg(int avrg) {
-		this.avrg = avrg;
-		return avrg;
-	}
+	// public int getSum() {
+		// return sum;
+	// }
+	// public int setSum(int sum) {
+		// this.sum = sum;
+		// return sum;
+	// }
+	// public int getAvrg() {
+		// return avrg;
+	// }
+	// public int setAvrg(int avrg) {
+		// this.avrg = avrg;
+		// return avrg;
+	// }
 	
 	void printAll() {
 		System.out.println("이름 : " + name);
-		System.out.printf("국어 : %d\n영어 : %d\n수학 : %d\n총합 : %d\n평균 : %d\n", kor, eng, math, sum, avrg);
+		System.out.printf("국어 : %d\n영어 : %d\n수학 : %d\n총합 : %d\n평균 : %d\n", kor, eng, math,
+							(kor + eng + math), ((kor + eng + math) / 3));
 	}
 }

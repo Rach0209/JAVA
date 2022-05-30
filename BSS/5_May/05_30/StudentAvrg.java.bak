@@ -16,6 +16,7 @@ public class StudentAvrg {
 		int sum = kor + eng + math;
 		int avrg = sum / 3;
 		
+		st.setName(name);
 		st.setKor(kor);
 		st.setEng(eng);
 		st.setMath(math);

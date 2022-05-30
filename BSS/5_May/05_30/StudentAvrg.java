@@ -13,15 +13,10 @@ public class StudentAvrg {
 		System.out.println("수학 점수?");
 		int math = scan.nextInt();
 		
-		int sum = kor + eng + math;
-		int avrg = sum / 3;
-		
 		st.setName(name);
 		st.setKor(kor);
 		st.setEng(eng);
 		st.setMath(math);
-		st.setSum(sum);
-		st.setAvrg(avrg);
 		st.printAll();
 		
 		

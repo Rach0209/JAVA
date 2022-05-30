@@ -64,7 +64,7 @@ public class Student {
 	}
 	
 	void printAll() {
-		System.out.println(name);
+		System.out.println("이름 : " + name);
 		System.out.printf("국어 : %d\n영어 : %d\n수학 : %d\n총합 : %d\n평균 : %d\n", kor, eng, math, sum, avrg);
 	}
 }
