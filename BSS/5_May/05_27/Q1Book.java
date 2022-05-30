@@ -21,7 +21,7 @@
 class Book {
 	String title;
 	String author;
-	void printAll() {
+	void printAll() {	// 반환값이 없어도 된다 => void 사용
 		System.out.println("제목 : " + title);
 		System.out.println("저자 : " + author);
 	}

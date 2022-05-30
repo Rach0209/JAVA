@@ -1,9 +1,11 @@
 public class TestBox {
 	public static void main(String[] args) {
 		Box none = null; // 참조형 변수는 null 을 참조할 수 있다.
-		// none.width = 10;
+		// none.width = 10; // 없는 박스를 참조 --> 실행 시에 에러와 함께 종료.
+		// 만든 이유 : 모든 변수들을 초기화 해야하기 때문에, 변수가 들어갈 값이 없는 상황이라도 초기화하기 위해 만들었지만,
+		// 오류문제가 자주남 NullPointerException 
 
-		Box box1; // 앞에서 만든 Box가 참조대상으로
+		Box box1; // 앞에서 만든 Box가 참조대상으로 // 하나의 타입으로 사용
 		box1 = new Box(); // instance화 및 instance
 		// 가로 세로 높이의 크기 지정. Box.java에서 변수를 선언해 놓은 것에 초기화.
 		box1.width = 3;
@@ -18,8 +20,8 @@ public class TestBox {
 		box2.height = 10;
 		
 		// System.out.println("부피: " + box1.volume); // 출력값 0
-		System.out.println(box1.getVolume());
-		System.out.println(box2.getVolume());
+		System.out.println("박스1 부피 : " + box1.getVolume());
+		System.out.println("박스2 부피 : " + box2.getVolume());
 		
 		box1.printAllState(); // 기능, 동작을 나타내는 메소드에 이름을 붙여서 가져옴.
 		box2.printAllState(); // 같은 동작이지만, instance의 상태에 따라서 값이 달라진다.

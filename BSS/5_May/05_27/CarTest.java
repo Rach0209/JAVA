@@ -13,7 +13,7 @@ class Car {
 
 public class CarTest {
 	public static void main(String[] args) {
-		Car myCar = new Car();		// 객체 생성
+		Car myCar = new Car();		// 객체 생성   Car() => 생성자 호출
 		myCar.color = "red";
 		myCar.speed = 0;			// 객체의 필드 변경
 		myCar.gear = 1;

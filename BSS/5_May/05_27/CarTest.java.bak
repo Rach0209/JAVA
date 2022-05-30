@@ -21,7 +21,7 @@ public class CarTest {
 		
 		// 색상:blue 속도:60 기어:3
 		
-		Car myCar2 = new Car();
+		Car myCar2 = new Car(); // 위에 것과는 상관없는 새로운 객체
 		myCar2.color = "blue";
 		myCar2.speed = 60;
 		myCar2.gear = 3;

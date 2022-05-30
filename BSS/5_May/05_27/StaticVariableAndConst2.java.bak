@@ -1,6 +1,6 @@
 public class StaticVariableAndConst2 {
-	public static void printTest(int param) { // 새롭게 변수가 만들어 짐.
-		param++;
+	public static void printTest(int param) { // 새롭게 변수가 만들어 짐. parameters 안에 final int 를 넣으면 컴파일 에러;
+		param++;							// final int 는 변화 불가 
 		System.out.println(param);
 		// System.out.println(TEST_SCOPE); // 메소드에 값을 전달하지 않으면 마찬가지로 컴파일 오류, 메소드 범위 벗어남
 	}

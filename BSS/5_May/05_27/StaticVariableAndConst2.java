@@ -1,3 +1,4 @@
+// 상수값이 파라미터로 전달 될 때.
 public class StaticVariableAndConst2 {
 	public static void printTest(int param) { // 새롭게 변수가 만들어 짐. parameters 안에 final int 를 넣으면 컴파일 에러;
 		param++;							// final int 는 변화 불가 

@@ -30,8 +30,8 @@ class Book {
 public class Q1Book {
 	public static void main(String[] args) {
 		Book myBook = new Book();
-		myBook.title = "title";
-		myBook.author = "author";
+		myBook.title = "Harry Potter";
+		myBook.author = "Joanne Kathleen Rowling";
 		myBook.printAll();
 	}
 }

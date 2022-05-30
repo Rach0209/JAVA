@@ -5,7 +5,7 @@ public class StaticVariableAndConst {
 		
 		final int ASDF;
 		ASDF = 10;  // 변하는 것 같아 보이지만, 최초의 대입연산인 초기화.
-		ASDF = 15;			// 초기화 부분은 컴파일 에러가 나지 않음. 그 이후는 에러
+		// ASDF = 15;// 초기화 부분은 컴파일 에러가 나지 않음. 그 이후 -> 변할 가능성이 있는 것은 에러
 		
 		
 		
