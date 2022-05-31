@@ -21,11 +21,13 @@ public class Car {
 	
 	// private 접근 제한자를 접근 가능케하기.
 	// 접근(색상)
+	// getter << 접근자
 	public String getColor() {
 		return color;
 	}
 	
 	// 설정
+	// setter << 설정자
 	public boolean setColor(String c) {
 		if (c != null) {
 			color = c;
@@ -38,14 +40,9 @@ public class Car {
 		return speed;
 	}
 	
-	public boolean setSpeed(int s) {
-		if (s != 0) {
+	public void setSpeed(int s) {
 			speed = s;
-			return true;
-		}
-		return false;
 	}
-	
 	public int getGear() {
 		return gear;
 	}

@@ -1,3 +1,4 @@
+// p.216
 class Time {
 	private int time;
 	private int minute;
@@ -7,6 +8,10 @@ class Time {
 		time = t;
 		minute = m;
 		second = s;
+	}
+	
+	public int getTime() {
+		return time;
 	}
 }
 
@@ -18,6 +23,10 @@ class AlarmClock {
 		alarmTime = a;
 		currentTime = c;
 	}
+	
+	public Time getCurrentTime() {
+		return currentTime;
+	}
 }
 
 public class AlarmClockTest {
@@ -26,5 +35,8 @@ public class AlarmClockTest {
 		Time current = new Time(12, 56, 34);
 		AlarmClock c = new AlarmClock(alarm, current);
 		System.out.println(c);
+		
+		int hour = c.getCurrentTime().getTime();
+		System.out.println(hour);
 	}			// end main
 }				// end class

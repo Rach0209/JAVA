@@ -40,23 +40,14 @@ public class Car {
 		return speed;
 	}
 	
-	public boolean setSpeed(int s) {
-		if (s != 0) {
+	public void setSpeed(int s) {
 			speed = s;
-			return true;
-		}
-		return false;
 	}
 	
 	public int getGear() {
 		return gear;
 	}
-	
-	public boolean setGear(int g) {
-		if (g != 0) {
+	public void setGear(int g) {
 			gear = g;
-			return true;
-		}
-		return false;
 	}
 }
