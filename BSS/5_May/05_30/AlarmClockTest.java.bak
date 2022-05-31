@@ -10,7 +10,7 @@ class Time {
 		second = s;
 	}
 	
-	public getTime() {
+	public int getTime() {
 		return time;
 	}
 }

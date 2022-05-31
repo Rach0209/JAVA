@@ -37,6 +37,8 @@ public class AlarmClockTest {
 		System.out.println(c);
 		
 		int hour = c.getCurrentTime().getTime();
+		// c.getCurrentTime() 만 넣으면 컴파일 오류 ;; -> Time 이라는 타입으로 전달 했기때문에 int 와 맞지않아서.
+		// -> getTime()을 추가해줌으로 해결
 		System.out.println(hour);
 	}			// end main
 }				// end class
