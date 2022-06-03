@@ -68,4 +68,11 @@ public class Student2 {
 		System.out.println("평균 점수 : " + getAverage());
 	}
 	
+	
+	// 선생님 사용
+	// 불련으로 비교해보기
+//	public boolean compare(Student2 other) {
+//		return this.getAverage() >= other.getAverage();
+//	}
+	
 }

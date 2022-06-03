@@ -31,12 +31,20 @@ public class StudentManagement { // 메인 class 생성
 		System.out.println("--------------------------");
 		
 		StClass Class = new StClass(student1, student2, student3);
-		Class.studentName(); // 등록된 학생들의 이름
+		Class.studentNames(); // 등록된 학생들의 이름
+		
+		// 학생자체 참조하여 학생이름 불러오기.
+//		System.out.println(Class.getStudent1().getName());
+//		System.out.println(Class.getStudent2().getName());
+//		System.out.println(Class.getStudent3().getName());
+		
 		System.out.println("--------------------------");
 		System.out.println("학생들의 총 평균(반 평균) : " + Class.allStudentAverage() + "점"); // 학생들의 총 평균
 		System.out.println("--------------------------");
 		Class.whoIsTop(); // 1등 판별 메소드 호출
 		System.out.println();
 		Class.information(); // 1등 학생에 대한 정보창 호출
+		
+		
 	}
 }
