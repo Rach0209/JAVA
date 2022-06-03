@@ -24,7 +24,7 @@ public class StClass { // 학생 정보를 담고있는 Student2클래스를 참
 		return (student1.getAverage() + student2.getAverage() + student3.getAverage()) / 3;
 	}
 
-	// 학생들 중 1등을 구별하는 메소드
+	// 학생들 중 1등을 구별하는 메소드 (모두 동점일 경우 학생등록 순서중 앞순서 학생이 나옴)
 	public Student2 whoIsTop() {
 		Student2 top; // return값을 받기위해
 		if (student1.getAverage() >= student2.getAverage() && student1.getAverage() >= student3.getAverage()) {
