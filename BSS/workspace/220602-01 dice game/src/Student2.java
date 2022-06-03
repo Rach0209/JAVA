@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Student2 {
-	
+	// 학생 기본 정보 입력 변수 설정
 	private String name;
 	private int kor;
 	private int eng;
@@ -13,7 +13,8 @@ public class Student2 {
 		this.eng = eng;
 		this.math = math;
 	}
-	
+	// 사용자에게 입력 받아서 기본정보 입력하기
+	// 한번에 정보를 입력받는 메소드 생성 (setter 모으기)
 	Scanner scan = new Scanner(System.in);
 	public void makeStudent2() {
 		setName();
@@ -21,7 +22,7 @@ public class Student2 {
 		setEng();
 		setMath();
 	}
-	
+	// getter/setter 생성
 	public String getName() {
 		return name;
 	}
@@ -50,13 +51,15 @@ public class Student2 {
 		System.out.println("----수학 점수 입력----");
 		math = scan.nextInt();
 	}
+	// 합계 구하는 메소드
 	public int getSum() {
 		return (kor + eng + math);
 	}
+	// 평균 구하는 메소드
 	public int getAverage() {
 		return (getSum() / 3);
 	}
-	
+	// 입력 받은 기본정보 상태 출력 메소드 - 이름, 점수, 평균
 	public void printState() {
 		System.out.println("학생 이름 : " + name);
 		System.out.println("국어 점수 : " + kor);
