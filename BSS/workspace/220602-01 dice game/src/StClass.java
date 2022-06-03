@@ -39,7 +39,7 @@ public class StClass { // 학생 정보를 담고있는 Student2클래스를 참
 
 	// 잘못 입력한 번호를 반복문으로 명령 재실행하기위한 메소드.
 	boolean between(int num) {
-		if (num >= 1 && num < 6 || num == 0) {
+		if (num >= 1 && num < 5 || num == 0) {
 			return true;
 		} else {
 			return false;
@@ -50,7 +50,7 @@ public class StClass { // 학생 정보를 담고있는 Student2클래스를 참
 	public void information() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println(
-				"1등 학생의 정보 검색창 원하는 정보 버튼 입력 \n<1>번 : 모든 정보, <2>번 : 이름, <3>번 : 과목별 점수, <4>번 : 평균점수 , <0>번 : 알고 싶지않음! 종료할거임.(숫자 하나만 입력)\n");
+				"------1등 학생의 정보 검색창------\n--원하는 정보를 보려면 버튼 입력--\n<1>번 : 모든 정보, <2>번 : 이름, <3>번 : 과목별 점수, <4>번 : 평균점수 , <0>번 : 알고 싶지않음! 종료할거임.(숫자 하나만 입력)\n");
 		int num = scan.nextInt();
 		// 반복문 사용 - 앞의 올바른 번호 입력일때만 작동하는 메소드이용.
 		while (!(between(num))) {
