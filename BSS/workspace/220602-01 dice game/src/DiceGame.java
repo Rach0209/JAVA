@@ -11,6 +11,11 @@ public class DiceGame {
 		diceFace = random.nextInt(6) + 1;
 	}
 	
+	// public으로 바꾸어도 괜찮음 
+//	public int getUserInPut() {
+//		Scanner s = new Scanner(System.in)
+//				return s.nextInt();
+//	}
 	private int getUserInput(String prompt) {
 		System.out.println(prompt);
 		Scanner s = new Scanner(System.in);
