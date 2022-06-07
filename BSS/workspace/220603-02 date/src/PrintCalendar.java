@@ -21,20 +21,21 @@ public class PrintCalendar {
 		// 현재 요일
 		DayOfWeek day = now.getDayOfWeek();
 		// 날짜 형식
-		DateTimeFormatter dateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter dateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd EE");
 		String result = dateFormat1.format(now);
 		// 시간 형식
 		DateTimeFormatter dateFormat2 = DateTimeFormatter.ofPattern("a h:mm:ss");
 		String timeresult = dateFormat2.format(time);
 		// 현재 요일 한글화;
-		String korDay = day.getDisplayName(TextStyle.SHORT, Locale.KOREA);
+//		String korDay = day.getDisplayName(TextStyle.SHORT, Locale.KOREA);
 		// 끝 날짜 설정하기
 		int lastday = now.lengthOfMonth();
 		// 첫 날짜 설정하기
 		LocalDate firstday = YearMonth.now().atDay(1);
 		int first = firstday.getDayOfWeek().getValue();		
 		// 날짜 형식 출력
-		System.out.println("현재날짜 : " + result + " " + korDay);
+		System.out.println("현재날짜 : " + result);
+//		System.out.println("현재날짜 : " + result + " " + korDay);
 		
 		// 달력 모양 만들기
 		System.out.println("일\t월\t화\t수\t목\t금\t토");

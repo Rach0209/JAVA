@@ -25,9 +25,9 @@ public class TestDateMethods {
 //		String result = dateFormat.format(now);
 //		System.out.println(result);
 //		
-//		// 내일의 날짜 객체
-//		LocalDate nowPlusOne = now.plusDays(1);
-//		LocalDate tomorrow2 = LocalDate.of(2022, 6, 4);
+//		// 내일의 날짜 객체 			// LocalDate 는 값 자체가 변하지 않기 때문에, 새로운 값을 만들어 주는 것이라 참조하는 것들에 영향을 미치지 않는다. Calendar는 참조값 자체가 변해서 영향이 미침. 
+//		LocalDate nowPlusOne = now.plusDays(1); // setter가 없음. 필드값은 변경 불가.// 자기의 값이 변경 되는 것이 아니라 새로운 값을 만들어 주는 것.
+//		LocalDate tomorrow2 = LocalDate.of(2022, 6, 4); // 특정한 날짜를 얻어낼 수 있음.
 //		LocalDate tomorrow1 = LocalDate.now().plusDays(1);
 //		DateTimeFormatter dateFormat2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		DateTimeFormatter dateFormat3 = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
