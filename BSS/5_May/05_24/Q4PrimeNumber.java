@@ -21,7 +21,7 @@ public class Q4PrimeNumber {
 		System.out.println("소수인지 확인할 정수 입력");
 
 		int num = scan.nextInt();
-		int count = 0;
+		int count = 0; // 나머지의 개수
 		for (int i = 1; i <= num; i++) {
 			if (num % i == 0) {
 				System.out.print(i + " ");
@@ -30,7 +30,7 @@ public class Q4PrimeNumber {
 		}
 		if (count == 2) {
 			System.out.println("소수 입니다.");
-		} else {
+		} else { // 나머지가 2개 초과면 소수가 아님
 			System.out.println("소수가 아닙니다.");
 		}
 		
