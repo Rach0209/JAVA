@@ -11,20 +11,23 @@ import java.util.Scanner;
 
 public class Main6 {
 	public static void main(String[] args) {
-//		Scanner scan = new Scanner(System.in);
-//		System.out.println("정수를 입력 하세요. 끝내려면 0이하의 정수 입력.");
-//		int idx = 0;
-//		int count = 0;
-////		int[] number = new int[idx];
-//		if (scan.nextInt() > 0) {
-//			for (int i = 0; i < i + 1; i++) {
-//				int[] number = new int[i];
-//				number[i] = scan.nextInt();
-//				count++;
-//			}
-//		} else {
-//			System.out.println(number[count]);
-//		}
-
+		Scanner scan = new Scanner(System.in);
+		int idx = 0;
+		int[] number = new int[5];
+		while (true) {
+			System.out.println("정수 입력.");
+			int count = scan.nextInt();
+			if (count <= 0) {
+				break;
+			}
+			number[idx] = count;
+			idx++;
+			if (idx == 5) {
+				idx = 0;
+			}
+		}
+		for (int i = 4; i >= 0; i--) {
+			System.out.println(number[i]);
+		}
 	}
 }
