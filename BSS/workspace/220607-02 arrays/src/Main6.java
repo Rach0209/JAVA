@@ -12,8 +12,9 @@ import java.util.Scanner;
 public class Main6 {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		final int MAX_LENGTH = 5;
 		int idx = 0;
-		int[] number = new int[5];
+		int[] number = new int[MAX_LENGTH];
 		while (true) {
 			System.out.println("정수 입력.");
 			int count = scan.nextInt();
@@ -22,7 +23,7 @@ public class Main6 {
 			}
 			number[idx] = count;
 			idx++;
-			if (idx == 5) {
+			if (idx == MAX_LENGTH) {
 				idx = 0;
 			}
 		}

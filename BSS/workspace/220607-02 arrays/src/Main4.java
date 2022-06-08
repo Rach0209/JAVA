@@ -6,7 +6,7 @@ public class Main4 {
 			System.out.print(target[i]);
 		}
 	}
-	
+
 	// 배열의 모든 원소를 문자열로 표현해서 반환하는 메소드
 	static String arrayToString(char[] target) {
 		String str = "";
@@ -15,38 +15,29 @@ public class Main4 {
 		}
 		return str;
 	}
-	
+
 	// 캐릭터 배열에서 하나의 특정 문자의 인덱스를 찾아 반환하는 메소드.
 	static int whereIs(char[] target, char c) {
-		for (int i = 0; i <target.length; i++) {
-			if(target[i] == c) {
+		for (int i = 0; i < target.length; i++) {
+			if (target[i] == c) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) {
-		char[] hello = { 'H', 'e', 'l', 'l', 'o' }; // 문자의 배열; 
+		char[] hello = { 'H', 'e', 'l', 'l', 'o' }; // 문자의 배열;
 //		printArray(hello);
 //		String result = arrayToString(hello);
 //		System.out.println(result);
-		
+
 		// java.util.에 있는 메소드. 문자열로 반환해주는 메소드
-		String result = Arrays.toString(hello); 
+		String result = Arrays.toString(hello);
 		System.out.println(result);
-		
+
 		System.out.println(whereIs(hello, 'o'));
 
-		
-		
-		
-		
-		
-		
 //		for (int i = 0; i < hello.length; i++) {
 //			System.out.print(hello[i]);
 //		}
