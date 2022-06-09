@@ -24,29 +24,31 @@ public class Main2 {
 				System.out.println();
 				System.out.println("몇번째 좌석을 예약하시겠습니까?");
 				int seat = scan.nextInt();
-				int idx = seat - 1;
-				if (number[idx] == 1) {
-					System.out.println("이미 예약된 자리입니다.");
-					continue;
-				} else {
-					number[idx] = 1;
-					System.out.println("예약되었습니다.");
-					System.out.println("좌석을 예약하시겠습니까?(1 또는 0)");
-					input = scan.nextInt();
-					if (input == 1) {
+				if (seat > 0 && seat < 11) {
+					int idx = seat - 1;
+					if (number[idx] == 1) {
+						System.out.println("이미 예약된 자리입니다.");
 						continue;
 					} else {
-						System.out.println("종료합니다.");
-						break;
+						number[idx] = 1;
+						System.out.println("예약되었습니다.");
+						System.out.println("좌석을 예약하시겠습니까? (1:계속, 다른아무숫자나입력:종료)");
+						input = scan.nextInt();
+						if (input == 1) {
+							continue;
+						} else {
+							System.out.println("종료합니다.");
+							break;
+						}
 					}
+				} else {
+					System.out.println("잘못된 입력입니다.");
+					continue;
 				}
 			}
 		} else {
 			System.out.println("종료합니다.");
 		}
-
-		
-
 
 //		System.out.println("몇번째 좌석을 예약하시겠습니까?");
 //		int seat = scan.nextInt(); // 원하는 좌석번호;
