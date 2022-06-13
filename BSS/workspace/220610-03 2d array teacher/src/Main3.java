@@ -3,9 +3,9 @@ import java.util.Random;
 
 // 각 행의 합	// 각 열의 합	// 숫자 7의 개수
 public class Main3 {
-	public static int[][] randomArray() {
+	public static int[][] randomArray() { // 랜덤한 배열 생성
 		Random random = new Random();
-		int[][] array = new int[5][5];
+		int[][] array = new int[4][5];
 
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array[i].length; j++) {
