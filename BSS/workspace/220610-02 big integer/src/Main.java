@@ -4,14 +4,17 @@ import java.math.BigInteger;
 // 숫자 범위 벗어났을 때 큰 수 표현 하기.
 public class Main {
 	public static void main(String[] args) {
-//		System.out.println(Long.MAX_VALUE);
-		
+		System.out.println(Long.MAX_VALUE);
+//		long l = 223372036854775808L; // 롱 범위를 벗어난 수이기 때문에 표현 불가.
 //		BigInteger value1 = BigInteger.valueOf(Long.MAX_VALUE + Long.MAX_VALUE); // long 타입 두개를 더한 것이라 값이 이상하게 나옴.
 		BigInteger value1 = new BigInteger("9223372036854775808"); // 큰 숫자를 문자열로 올 수 있게끔 생성.
-//		System.out.println(value1 + 5); // 산술 연산자 사용 불가.
+//		System.out.println(value1 + 5); // 산술 연산자 사용 불가. // 대신 메소드로 표현
 		System.out.println(value1.add(new BigInteger("10"))); // add 타입 = BigInteger 타입. // 하나의 객체임. 큰 수를 표현하기위한 클래스.
+		// 값을 변화시키는 setter는 존재하지 않음. // 참조로 같은 값을 불러온다.
 		System.out.println(value1); // value1 값은 바뀌지 않음 - 상태값의 변화가 없다. // 새로운 BigInteger 값을 만들어 낸다.
 		
+		
+		// 실수
 		BigDecimal dec = new BigDecimal("0.123456789");
 		System.out.println(dec);
 		

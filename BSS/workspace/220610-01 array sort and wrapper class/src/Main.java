@@ -27,13 +27,14 @@ public class Main {
 //		
 		
 		
-//		
+//		정렬 - 필요한 자료의 순서대로 알고리즘을 사용하여 정렬해줄 수 있음
+		// 검색을 쉽게 해줄 수 있게 해준다.
 		int[] arr = { 50, 30, 20, 60, 10 };
 //		insertionSort(arr);
-		Arrays.sort(arr);
-		// 이진 검색법 // 배열의 원소값이 고유해야한다 = 겹치는 값이 없어야 함.
+		Arrays.sort(arr); // => quick sort
+		// 이진 검색법  - 절반씩 나누어 원하는 값 요소를 찾아 간다. // 배열의 원소값이 고유해야한다 = 겹치는 값이 없어야 함.
 		int index = Arrays.binarySearch(arr, 20);
-		System.out.println("20의 인덱스 : " + index);
+		System.out.println("20의 인덱스 : " + index); // index는 0부터 시작이기 때문에 두번째인 20은 index값이 1.
 		
 		System.out.println(Arrays.toString(arr));
 //
