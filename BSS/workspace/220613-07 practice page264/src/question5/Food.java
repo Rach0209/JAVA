@@ -36,7 +36,7 @@ public class Food {
 	}
 
 	public String toString() {
-		return "칼로리 = " + kcal + "kcal, 가격 = " + price + "원, 중량 =" + weight + "kg";
+		return "칼로리 : " + kcal + "kcal, 가격 : " + price + "원, 중량 :" + weight + "kg";
 	}
 	
 	

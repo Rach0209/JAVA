@@ -9,7 +9,7 @@ package question4;
 
 public class Main {
 	public static void main(String[] args) {
-		Magazine m = new Magazine("책 제목", 250, "저자 이름", "발매일 : yyyy-mm-dd");
+		Magazine m = new Magazine("이것은 책이다.", 2500, "김 책장인", "발매일 : 2032-06-13");
 		m.printAll();
 	}
 }

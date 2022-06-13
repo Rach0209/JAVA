@@ -9,7 +9,7 @@ package question5;
 
 public class Main {
 	public static void main(String[] args) {
-		Melon melon = new Melon(80, 16000, 3, "메롱");
+		Melon melon = new Melon(80, 16000, 3, "메롱농장데스네");
 		System.out.println(melon.toString());
 	}
 }

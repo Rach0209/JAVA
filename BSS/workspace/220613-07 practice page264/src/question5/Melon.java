@@ -18,7 +18,7 @@ public class Melon extends Food {
 
 	
 	public String toString() {
-		return super.toString() + " 농원 정보 = " + info;
+		return super.toString() + " 농원 정보: " + info;
 	}
 	
 	

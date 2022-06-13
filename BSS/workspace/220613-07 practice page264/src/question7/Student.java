@@ -2,14 +2,14 @@ package question7;
 
 public class Student {
 	private String name;
-	private int idnum;
+	private int idNum;
 	private String department;
 	private int grade;
 	private int creditsCompleted;
 	
-	public Student(String name, int idnum, String department, int grade, int creditsCompleted) {
+	public Student(String name, int idNum, String department, int grade, int creditsCompleted) {
 		this.name = name;
-		this.idnum = idnum;
+		this.idNum = idNum;
 		this.department = department;
 		this.grade = grade;
 		this.creditsCompleted = creditsCompleted;
@@ -23,12 +23,12 @@ public class Student {
 		this.name = name;
 	}
 
-	public int getIdnum() {
-		return idnum;
+	public int getidNum() {
+		return idNum;
 	}
 
-	public void setIdnum(int idnum) {
-		this.idnum = idnum;
+	public void setidNum(int idNum) {
+		this.idNum = idNum;
 	}
 
 	public String getDepartment() {
@@ -56,8 +56,8 @@ public class Student {
 	}
 
 	public String toString() {
-		return "학생 이름: " + name + ", 학번: " + idnum + ", 학과: " + department + ", 학년: " + grade
-				+ "학년, 이수학점: " + creditsCompleted;
+		return "학생 이름: " + name + ", 학번: " + idNum + ", 학과: " + department + ", 학년: " + grade
+				+ "학년, 이수학점: " + creditsCompleted + "점 ";
 	}
 	
 	

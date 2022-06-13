@@ -14,7 +14,7 @@ public class Main {
 		System.out.println(underGraduate.toString());
 		System.out.println();
 		
-		Graduate graduate = new Graduate("노인간", 14001234, "신재생 에너지과", 2, 18, "연구 조교", 0.7);
+		Graduate graduate = new Graduate("이노예", 14001234, "신재생 에너지과", 2, 8, "연구 조교", 0.65);
 		System.out.println(graduate.toString());
 	}
 }

@@ -38,7 +38,7 @@ public class SmartPhone extends Phone {
 	}
 
 	public String toString() {
-		return super.toString() + "운영체제 : " + os + ", 운영체제 버전: " + osVer + ", 메모리 : " + memory + "g, 카메라 지원: " + camera
-				+ "GByte, 블루투스 지원 : " + bluetooth;
+		return super.toString() + ", 운영체제 : " + os + ", 운영체제 버전: " + osVer + ", 메모리 : " + memory + "GByte, 카메라 지원: " + camera
+				+ ", 블루투스 지원 : " + bluetooth;
 	}
 }
