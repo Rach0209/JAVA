@@ -3,7 +3,7 @@
 // 중복 등록이 되면 안 됨. (이름, 키, 몸무게가 동일하면 중복입니다.)
 // 기준에 따라 집계를 해서 목록을 보여줘야 합니다.
 
-// 나의 기준 : 이름 가나다 오름차순, 비만 (저체중 ~ 고도 오름차순)기준
+// 나의 기준 : 몸무게 정렬, 비만 (저체중 ~ 고도 오름차순)기준
 
 // 회원
 // 이름
@@ -25,7 +25,8 @@
 
 public class HealthTest {
 	public static void main(String[] args) {
-		MemberManage a = new MemberManage();
-		a.Start();
+		MemberManage m = new MemberManage();
+		
+		m.start();
 	}
 }

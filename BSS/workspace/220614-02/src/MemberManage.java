@@ -1,45 +1,84 @@
 import java.util.Scanner;
 
-public class MemberManage { // 회원 관리 클래스.
-	private Member[] member;
+public class MemberManage {
+	private Gym gym;
 
-	public void InputMember() { // 회원 정보 입력 메소드
+	// 헬스장 기존 멤버 3명있다고 가정.
+	public Member[] oldMembers() {
+		Member[] members = new Member[3];
+		members[0] = new Member("김장신", 195, 67);
+		members[1] = new Member("이단신", 145, 90);
+		members[2] = new Member("최평균", 173, 63);
+		return members;
+	}
+
+	// 프로그램 시작 메소드.
+	public void start() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("----------회원 등록 창----------");
-		System.out.println(" 등록할 회원의 수를 입력 하세요. 최대 10명.");
-		int registCount = scan.nextInt();
-		for (int i = 0; i < registCount; i++) {
-			String name = getData("등록할 회원의 이름을 입력하세요.");
-			double height = Double.parseDouble(getData("등록할 회원의 키를 입력하세요."));
-			double weight = Double.parseDouble(getData("등록할 회원의 몸무게를 입력하세요."));
-			for (int j = 0; j < member.length; j++) {
-				if (member[j] == null) {
-					member[j] = new Member(name, height, weight);
-				}
+
+		// 기존 회원 등록.
+		gym = new Gym(oldMembers());
+
+		System.out.println("-----------------------------");
+		System.out.println("---------회원 관리 프로그램---------");
+		System.out.println("-----------------------------");
+
+		while (true) {
+			System.out.println();
+			System.out.println("************ 목 록 ************");
+			System.out.println("1. 전체 회원 기본 정보 (성함, 키, 몸무게, 비만기준)");
+			System.out.println("2. 신규 회원 등록");
+			System.out.println("3. 기존 회원 수정");
+			System.out.println("4. 몸무게 정렬 (내림차순, 오름차순 택)");
+			System.out.println("5. BMI 정렬 (오름차순)");
+			System.out.println("0. 프로그램 종료");
+			System.out.print("원하는 기능 번호 입력 : ");
+			int input = scan.nextInt();
+
+			switch (input) {
+			case 1: {
+				System.out.println("-------------------------");
+				gym.printMembersInfo();
+				System.out.println("-------------------------");
+				break;
 			}
-			System.out.printf("-------------%d명 등록 하였습니다.\n", i + 1);
+			case 2: {
+				System.out.println("-------------------------");
+				gym.addMember();
+				System.out.println("-------------------------");
+				break;
+			}
+			case 3: {
+				System.out.println("-------------------------");
+				gym.setMembers();
+				System.out.println("-------------------------");
+				break;
+			}
+			case 4: {
+				System.out.println("-------------------------");
+				gym.weightArray();
+				System.out.println("-------------------------");
+				break;
+			}
+			case 5: {
+				System.out.println("-------------------------");
+				gym.printAscBmi();
+				System.out.println("-------------------------");
+				break;
+			}
+			case 0: {
+				System.out.println("-------------------------");
+				System.out.println("프로그램을 종료합니다~");
+				System.out.println("-------------------------");
+				return;
+			}
+			default: {
+				System.out.println("-------------------------");
+				System.out.println("올바르지 않은 입력.");
+				System.out.println("-------------------------");
+				break;
+			}
+			}
 		}
-	}
-
-	// 데이터 입력받기 메소드
-	public String getData(String message) {
-		Scanner scan = new Scanner(System.in);
-		System.out.println(message);
-		return scan.next();
-	}
-
-	// 기본 정보 출력. 이름, 키 , 몸무게, bmi지수
-	public void printBasicInfo() {
-		for (int i = 0; i < member.length; i++) {
-		System.out.println(member[i].toString());
-		}
-	}
-
-	// 프로그램 시작
-	public void Start() {
-		System.out.println("**********부모님 어깨위의 Gym 회원 관리 프로그램**********");
-		InputMember();
-		printBasicInfo();
-
 	}
 }
