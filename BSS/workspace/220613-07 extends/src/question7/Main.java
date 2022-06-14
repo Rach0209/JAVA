@@ -14,7 +14,7 @@ public class Main {
 		System.out.println(s.toString());
 		System.out.println();
 		
-		UnderGraduate underGraduate = new UnderGraduate("백돌이", 22001234, "음악학과", 3, 19, "아싸휴게소");
+		UnderGraduate underGraduate = new UnderGraduate("백돌이", 20001234, "음악학과", 3, 19, "아싸휴게소");
 		System.out.println(underGraduate.toString());
 		System.out.println();
 		
