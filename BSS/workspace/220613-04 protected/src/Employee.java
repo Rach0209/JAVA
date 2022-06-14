@@ -1,4 +1,5 @@
-public class Employee {
+public class Employee {	// 기본적으로 가장 엄격한 private이 좋고, 
+						// 여러방면에서 쓸때는 protected //
 	public String name;			// 이름 : 공용 멤버
 	String address;				// 주소 : 패키지 멤버
 	protected int salary;		// 월급 : 보호 멤버
