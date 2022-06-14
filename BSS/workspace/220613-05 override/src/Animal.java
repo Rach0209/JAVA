@@ -14,6 +14,18 @@ class Dog extends Animal {
 		// 부모 클래스 행동말고, 자식 클래스의 행동이 언제나 호출됨.
 		System.out.println("멍멍");
 	}
+	
+	@Override // 명시하지 않지만, 기본Object의 toString()을 오버라이드 한것임.
+	public String toString() {
+		return "강아지입니다";
+	}
+}
+
+class Poodle extends Dog {
+	@Override
+	public void sound() {
+		System.out.println("얼얼얼");
+	}
 }
 
 class Cat extends Animal {
