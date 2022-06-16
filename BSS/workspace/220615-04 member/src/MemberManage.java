@@ -31,8 +31,7 @@ public class MemberManage {
 			System.out.println("3. 기존 회원 수정");
 			System.out.println("4. 몸무게 정렬 (내림차순, 오름차순 택)");
 			System.out.println("5. BMI 정렬 (오름차순)");
-			System.out.println("6. 키 순(오름차순)으로 멤버 조회");
-			System.out.println("7. 몸무게 순(오름차순)으로 멤버 조회");
+			System.out.println("6. 목록 순 멤버 조회");
 			System.out.println("0. 프로그램 종료");
 			System.out.print("원하는 기능 번호 입력 : ");
 			int input = scan.nextInt();
@@ -69,15 +68,28 @@ public class MemberManage {
 				break;
 			}
 			case 6: {
-				System.out.println("-------------------------");
-				gym.arrHeight();
-				System.out.println("-------------------------");
-				break;
-			}
-			case 7: {
-				System.out.println("-------------------------");
-				
-				System.out.println("-------------------------");
+				while (true) {
+					System.out.println("-------------------------");
+					System.out.println("1. 이름 순(오름차순)으로 멤버 조회");
+					System.out.println("2. 몸무게 순(오름차순)으로 멤버 조회");
+					System.out.println("3. 키 순(오름차순)으로 멤버 조회");
+					System.out.println("-------------------------");
+					input = scan.nextInt();
+					if (input == 1) {
+						gym.arrName();
+						break;
+					} else if (input == 2) {
+						gym.arrWeight();
+						break;
+					} else if (input == 3) {
+						gym.arrHeight();
+						break;
+					} else {
+						System.out.println("-------------------------");
+						System.out.println("올바르지 않은 입력.");
+						System.out.println("-------------------------");
+					}
+				}
 				break;
 			}
 			case 0: {

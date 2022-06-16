@@ -2,9 +2,9 @@ import java.util.Comparator;
 
 public class Member implements Comparable<Member> {
 
-	private String name;
-	private double height;
-	private double weight;
+	protected String name;
+	protected double height;
+	protected double weight;
 
 	public Member() {
 	}
@@ -71,6 +71,7 @@ public class Member implements Comparable<Member> {
 		}
 	}
 
+	// 중복 등록 방지를 위한 메소드
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Member) {
@@ -87,19 +88,29 @@ public class Member implements Comparable<Member> {
 	public int compareTo(Member member) {
 		return (int) (this.height - member.height);
 	}
-//	
-//	@Override
-//	public int compare(Member o1, Member o2) {
-//		return (int) Double.compare(o1.getWeight(), o2.getWeight());
-//	}
+}
+// 몸무게 (오름차순) comparator 로 비교하기
+class WeightComparator implements Comparator<Member> {
+	@Override
+	public int compare(Member o1, Member o2) {
+		return (int) (o1.weight - o2.weight);
+	}
+}
+// 키 (오름차순) comparator 로 비교하기
+class HeightComparator implements Comparator<Member> {
+	@Override
+	public int compare(Member o1, Member o2) {
+		return (int) (o1.height - o2.height);
+	}
+}
+
+// 이름 비교하기 comparator
+// comparable의 compareTo가 문자열을 비교해준다.
+class NameComparator implements Comparator<Member> {
+	@Override
+	public int compare(Member o1, Member o2) {
+		return o1.name.compareTo(o2.name);
+	}
 	
 }
 
-//class ArrWeight implements Comparator<Member> {
-//
-//	@Override
-//	public int compare(Member o1, Member o2) {
-//		return (int) Double.compare(o1.getWeight(), o2.getWeight());
-//	}
-//	
-//}

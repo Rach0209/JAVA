@@ -33,6 +33,7 @@ class Member implements Comparable<Member> {
 	}
 }
 
+
 public class Main {
 	public static void main(String[] args) {
 		Member[] members = { new Member("키큰놈", 190, 60), new Member("키작은놈", 130, 20), new Member("중간쯔음", 176, 65) };
@@ -41,6 +42,6 @@ public class Main {
 		System.out.println(members[0].height);
 		System.out.println(members[1].height);
 		System.out.println(members[2].height);
-
+		
 	}
 }

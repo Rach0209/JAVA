@@ -1,5 +1,5 @@
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Gym {
@@ -58,18 +58,18 @@ public class Gym {
 						System.out.println("이미 등록된 회원입니다.");
 						i--;
 						break;
-					}  
+					}
 				}
-						
-			int input = 1;
-			System.out.println("1. 계속 등록");
-			System.out.println("2. 등록 종료");
-			input = scan.nextInt();
 
-			if (input == 2) {
-				trueFalse = false;
-				break;
-			}
+				int input = 1;
+				System.out.println("1. 계속 등록");
+				System.out.println("2. 등록 종료");
+				input = scan.nextInt();
+
+				if (input == 2) {
+					trueFalse = false;
+					break;
+				}
 			}
 		}
 	}
@@ -204,21 +204,43 @@ public class Gym {
 					m.getWeight(), m.getBmi(), m.bmiStandard());
 		}
 	}
-	
-	
-	// case 6. 키 순(오름차순)으로 멤버 조회하기 기능
+
+	// case 6. 키 순(오름차순)으로 멤버 조회하기 기능 ( Comparable 사용)
+//	public void arrHeight() {
+//		Arrays.sort(members);
+//		for (Member m : members) {
+//			System.out.printf("성함 : %s, 키 : %.1f, 몸무게 : %.1f, BMI 지수 : %.2f, 비만 기준 : %s\n", m.getName(), m.getHeight(),
+//					m.getWeight(), m.getBmi(), m.bmiStandard());
+//		}
+//	}
+
+	// case 6. 키 순(오름차순)으로 멤버 조회하기 기능 ( Comparator 사용 )
 	public void arrHeight() {
-		Arrays.sort(members);
+		HeightComparator comparator = new HeightComparator();
+		Arrays.sort(members, comparator);
 		for (Member m : members) {
 			System.out.printf("성함 : %s, 키 : %.1f, 몸무게 : %.1f, BMI 지수 : %.2f, 비만 기준 : %s\n", m.getName(), m.getHeight(),
 					m.getWeight(), m.getBmi(), m.bmiStandard());
 		}
 	}
-	
+
 	// case 7. 몸무게 순(오름차순)으로 멤버를 조회하기
+	public void arrWeight() {
+		WeightComparator comparator = new WeightComparator();
+		Arrays.sort(members, comparator);
+		for (Member m : members) {
+			System.out.printf("성함 : %s, 키 : %.1f, 몸무게 : %.1f, BMI 지수 : %.2f, 비만 기준 : %s\n", m.getName(), m.getHeight(),
+					m.getWeight(), m.getBmi(), m.bmiStandard());
+		}
+	}
 
-	
-	
+	// case 8. 이름 순(오름차순)으로 멤버를 조회하기 (compareTo가 비교해줌)
+	public void arrName() {
+		NameComparator comparator = new NameComparator();
+		Arrays.sort(members, comparator);
+		for (Member m : members) {
+			System.out.printf("성함 : %s, 키 : %.1f, 몸무게 : %.1f, BMI 지수 : %.2f, 비만 기준 : %s\n", m.getName(), m.getHeight(),
+					m.getWeight(), m.getBmi(), m.bmiStandard());
+		}
+	}
 }
-
-
