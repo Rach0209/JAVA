@@ -29,7 +29,7 @@ public class Employee implements Comparable<Employee>{
 		return 0;
 	}
 	
-	
+
 }
 // 조련사 클래스
 class Trainer extends Employee {

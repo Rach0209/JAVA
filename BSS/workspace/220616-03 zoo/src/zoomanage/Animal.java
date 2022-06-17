@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 
 // 동물 : 이름, 나이, 몸무게
-public class Animal implements Comparable<Animal> {
+public class Animal {
 	protected String species;
 	protected int age;
 	protected int weight;
@@ -46,10 +46,10 @@ public class Animal implements Comparable<Animal> {
 		return "동물의 종류 : " + species + ", 나이 : " + age + "살, 무게 : " + weight + "kg";
 	}
 
-	@Override
-	public int compareTo(Animal o) {
-		return 0;
-	}
+//	@Override
+//	public int compareTo(Animal o) {
+//		return 0;
+//	}
 
 }
 

@@ -72,11 +72,19 @@ public class EmployeeManagement {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("=================");
 		System.out.println("직원 정보 입력\n");
-		String part = getData("파트(조련사, 경영팀)를 입력하세요");
-		String name = getData("이름을 입력하세요");
-		
+		System.out.println("----1. 조련사 | 2. 경영팀----");
+		int num = scan.nextInt();
+		String part = "미지정";
+		if (num == 1) {
+			part = "조련사";
+		} else if (num == 2) {
+			part = "경영팀";			
+		} 
+		String name = getData("이름을 입력 하세요");
+		scan.nextLine();
 		return new Employee(part, name);
 	}
+	
 	// 등록 리턴값 배열에 등록하는 메소드 / 중복 방지
 	// 총 인원 15명 제한걸기
 	public void addEmployee() {
@@ -96,8 +104,7 @@ public class EmployeeManagement {
 						break;
 					}
 				}
-
-				int input = 1;
+				int input = 0;
 				System.out.println("1. 계속 등록");
 				System.out.println("2. 등록 종료");
 				input = scan.nextInt();

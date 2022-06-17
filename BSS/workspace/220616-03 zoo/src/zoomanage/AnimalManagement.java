@@ -98,7 +98,7 @@ public class AnimalManagement {
 	public void arrFeed() {
 		Scanner scan = new Scanner(System.in);
 		while (true) {
-			System.out.println("1. 육식\t2. 초식 선택\t0. 나가기");
+			System.out.println("1. 육식 | 2. 초식 선택 | 0. 나가기");
 			int input = scan.nextInt();
 			switch (input) {
 			case 1: {
@@ -117,6 +117,70 @@ public class AnimalManagement {
 				System.out.println("잘못된 값");
 				break;
 			}
+			}
+		}
+	}
+	// 데이터 입력 받기 메소드.
+		public String getData(String message) {
+			Scanner scan = new Scanner(System.in);
+			System.out.println(message);
+			return scan.next();
+		}
+	
+	// 동물 등록 메소드
+	public Animal inputAnimal() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("================");
+		System.out.println("\t동물 정보 입력\n");
+		System.out.println("1. 육식동물 | 2. 초식동물 | 3. 미정");
+		int input = scan.nextInt();
+		if (input == 1) {
+			String species = getData("동물 이름 입력");
+			int age = Integer.parseInt(getData("동물 나이 입력"));
+			int weight = Integer.parseInt(getData("동물 무게 입력"));
+			return new Carnivore(species, age, weight, "육식");
+		} else if (input == 2) {
+			String species = getData("동물 이름 입력");
+			int age = Integer.parseInt(getData("동물 나이 입력"));
+			int weight = Integer.parseInt(getData("동물 무게 입력"));
+			return new Herbivore(species, age, weight, "초식");
+		} else {
+			String species = getData("동물 이름 입력");
+			int age = Integer.parseInt(getData("동물 나이 입력"));
+			int weight = Integer.parseInt(getData("동물 무게 입력"));
+			return new Animal(species, age, weight);
+		}
+	}
+	
+	// 동물 등록 리턴값을 배열에 등록하기 / 중복 방지 추가
+	// 총 동물 수 20마리 제한걸기
+	public void addAnimal() {
+		Scanner scan = new Scanner(System.in);
+		boolean trueFalse = true;
+		while (trueFalse) {
+			for (int i = animals.length; i < 20; i++) {
+				System.out.println("등록 가능 동물수  : " + (20 - i) + "마리");
+				System.out.println();
+				animals = Arrays.copyOf(animals, animals.length + 1);
+				animals[i] = inputAnimal();
+				for (int j = 0; j < i; j++) {
+					if (animals[j].equals(animals[i])) {
+						animals[i] = null;
+						System.out.println("이미 등록된 회원입니다.");
+						i--;
+						break;
+					}
+				}
+
+				int input = 1;
+				System.out.println("1. 계속 등록");
+				System.out.println("2. 등록 종료");
+				input = scan.nextInt();
+
+				if (input == 2) {
+					trueFalse = false;
+					break;
+				}
 			}
 		}
 	}
