@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 // 호출하는 쪽에서 예외처리 하고 싶을 때.throws MyZeroDivideException 뒤에 , 쉼표찍고 더 적어줄 수도 있음.
 public class Main5 { // class 타입에 이름을 적어줌.
+	// runtime 예외를 만들어 놓으면, throws MyZeroDivideException 를 적어주지 않아도 적용된다.
 	public static int divide(int left, int right) throws MyZeroDivideException {
 		if (right == 0) {
 			throw new MyZeroDivideException("나눌 수 없음");
@@ -17,6 +18,7 @@ public class Main5 { // class 타입에 이름을 적어줌.
 	}
 	
 	public static void main(String[] args) {
+		divide(10, 0);
 		myFunction();
 		//		Scanner scan = new Scanner(System.in);
 //		scan.nextInt(); // 오류 중에 try catch 를 강요하지 않으면 runtimeException이다.

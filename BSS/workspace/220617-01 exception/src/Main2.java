@@ -28,7 +28,10 @@ public class Main2 {
 		// 상단에 Exception 클래스 - 상속 구조 -
 		// NullPointerException 같은것들은 서브 클래스(자식)임.
 		// catch 의 순서에 유의하기
-
+		// 슈퍼 클래스인 Exception을 catch문의 위에 적으면, 밑에 있는 예외들은 자식이기 때문에
+		// 도달할 수 없게 되어 컴파일에러가 발생한다.
+		
+//		try catch를 적지 않아도 보이는 예외들은 un-checked 라고 부른다.
 		System.out.println("정상 종료");
 	}
 }

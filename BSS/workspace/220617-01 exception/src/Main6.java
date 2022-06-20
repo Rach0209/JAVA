@@ -38,10 +38,10 @@ class BankAccount {
 	public void withdraw(int amount) throws BankWithdrawException {
 		if (balance >= amount) {
 			balance -= amount;
-		} else {
+		} else { // 출금이 일어나지 않는 상황에 던질 예외
 			throw new BankWithdrawException("ㅋㅋ...ㅎㅎ;;ㅈㅅ!!\n님 돈 모자람ㅎㅋㅋ;ㅎㅋ;", amount - balance);
 		}
-	};
+	}
 
 	public int getBalance() {
 		return balance;
@@ -60,7 +60,7 @@ public class Main6 {
 		System.out.println(b.getBalance());
 		} catch (BankWithdrawException e) {
 			System.out.println(e.getMessage());
-			System.out.println(e.getLack());
+			System.out.println(e.getLack() + "부족함");
 		}
 	}
 }
