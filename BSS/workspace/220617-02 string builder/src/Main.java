@@ -9,7 +9,7 @@ public class Main {
 //		String result = sb.toString();
 //		System.out.println(result);
 		StringBuilder sb = new StringBuilder("원본");
-		sb.append(",One=")
+		sb.append(",One=") // append는 void를 리턴하는 것이 아니라 자기 자신의 참조를 붙여준다.
 			.append(1)
 			.append(",DoubleValue=")
 			.append(255.0);
@@ -18,7 +18,7 @@ public class Main {
 		// 흐름을 타고 내려가서 조금 느림, 서로 장단점이 있음
 //		StringBuffer sbuffer; 
 		
-//		sb.reverse();
+//		sb.reverse(); 글자 순서 뒤집기
 		// 문자 바꾸기
 		// (인덱스 번호, 바꿀문자);
 		sb.setCharAt(0, 'Q');
@@ -27,7 +27,10 @@ public class Main {
 		// (인덱스, 문자);
 		sb.insert(0, "시작");
 		
-		String result = sb.toString();
+		String str = "원본";
+		str.concat(",one="); // 새로운 참조를 만들어, 그 참조를 반환하는 것, 원본 = str 은 유지된다. 불변.
+		
+		String result = sb.toString(); // 문자열로 다루고 싶을 때, toString()사용
 		System.out.println(result);
 		
 		

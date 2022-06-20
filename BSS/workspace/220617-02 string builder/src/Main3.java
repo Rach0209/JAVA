@@ -15,11 +15,12 @@ public class Main3 {
 		
 		
 		// 만들어져 있는 클래스 사용
-		// (longLine, " ") => " " 공백이 있으면 값을 가져옴
-		// 값이 더이상 없을 때, 값을 가져오려하면 에러; 예외적 상황발생;
+		// (longLine, " ") => " " 공백이 있으면 값을 가져옴 / 값이 있든 없든 무조건 가져온다.
+		// 값이 더이상 없을 때, 값을 가져오려하면 에러; => 예외적 상황발생;
 //		StringTokenizer st = new StringTokenizer(longLine, " ");
 //		int i = 0;
-//		while (st.hasMoreTokens()) {
+//		while (st.hasMoreTokens()) { // hasMoreTokens()로 값이 있는지 미리 확인해준다.
+									 // 반복문 사용해서 있으면 가져온다. 눈에 익혀두기
 //			i++;
 //			String result = st.nextToken();
 //			if (i == 3) {
@@ -35,7 +36,7 @@ public class Main3 {
 //			System.out.println(local);
 //		}
 		
-		
+//		StringTokenizer st = new StringTokenizer(longLine, " ");
 //		while (st.hasMoreTokens()) {
 //			String local = st.nextToken();
 //			System.out.println(local);

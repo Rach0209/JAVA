@@ -51,5 +51,28 @@ public class Main4 {
 		String[] countTime = friday.split("시계");
 		System.out.println(countTime.length - 1);
 		
+		StringTokenizer str = new StringTokenizer(friday, " ");
+		int i = 0;
+		int j = 0;
+		while (str.hasMoreTokens()) {
+			if (str.nextToken().contains("금요일")) {
+			i++;
+			}
+		}
+		
+		StringTokenizer st = new StringTokenizer(friday, " ");
+		while (st.hasMoreTokens()) {
+			if (st.nextToken().contains("시계")) {
+			j++;
+			}
+		}
+		
+		System.out.println(i);
+		System.out.println(j);
+		
+		
+		friday.trim(); // trim < 문자열의 좌우 공백 제거한 문자열 반환
+		
+		
 	}
 }
