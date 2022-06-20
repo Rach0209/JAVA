@@ -49,19 +49,19 @@ public class Main10 {
 			case 2: {
 				Iterator<String> iter1 = list.iterator();
 				System.out.println("몇개 줄거임?");
-				System.out.println("현재 과일 재고 목록: " + list + " "  + list.size() + "개 있음");
+				System.out.println("현재 과일 재고 목록: " + list + " " + list.size() + "개 있음");
 				try {
-				int howmany = scanner.nextInt();
-				for (int i = 0; i < howmany; i++) {
-					iter1.hasNext();
-					String str = iter1.next();
-					iter1.remove();
+					int howmany = scanner.nextInt();
+					for (int i = 0; i < howmany; i++) {
+						iter1.hasNext();
+						String str = iter1.next();
+						iter1.remove();
 					}
 				} catch (NoSuchElementException e) {
 					System.out.println("가지고 있는 것보다 많이 줄 순 없어요 일단 있는건 다주겠음");
 				}
 			}
-			System.out.println("주고 난 후 과일 재고 목록: " + list + " "  + list.size() + "개 남음");
+				System.out.println("주고 난 후 과일 재고 목록: " + list + " " + list.size() + "개 남음");
 				break;
 			case 3: {
 				scanner.nextLine();
@@ -73,9 +73,8 @@ public class Main10 {
 				for (int i = 0; i < addfruit; i++) {
 					System.out.println("추가할 과일 입력");
 					String fruit = scanner.nextLine();
-					
 					list.add(fruit);
-					System.out.println(list + " "  + "현재" +list.size() + "개");
+					System.out.println(list + " " + "현재" + list.size() + "개");
 				}
 				break;
 			}
@@ -83,22 +82,11 @@ public class Main10 {
 				System.out.println("프로그램 종료");
 				return;
 			}
-			default : {
+			default: {
 				System.out.println("잘못된 입력");
 				return;
 			}
 			}
-
 		}
-
 	}
-
-	public void distributeFruit() {
-
-	}
-
-	public void addFruit() {
-
-	}
-
 }
