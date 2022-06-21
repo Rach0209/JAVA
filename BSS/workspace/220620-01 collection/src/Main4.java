@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 // List는 인터페이스다. => 추상적 개념을 다루기 위해 사용. List는 ArrayList특징을 모두 가지고 있음.
-// List 특징 (interface의) iterable (반복 가능한, 열거 가능한)
+// List 특징 (interface의) 'iterator' => iterable (반복 가능한, 열거 가능한)
 public class Main4 {
 	public static void main(String[] args) {
 		List<String> list = new ArrayList<>();

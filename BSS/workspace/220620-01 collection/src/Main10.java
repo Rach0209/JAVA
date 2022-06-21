@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,15 +58,19 @@ public class Main10 {
 						String str = iter1.next();
 						iter1.remove();
 					}
-				} catch (NoSuchElementException e) {
+				} catch (InputMismatchException e1) {
+					System.out.println("숫자만 입력하십쇼; 프로그램 꺼지잖음");
+				} catch (NoSuchElementException e2) {
 					System.out.println("가지고 있는 것보다 많이 줄 순 없어요 일단 있는건 다주겠음");
+				} finally {
+					System.out.println("주고 난 후 과일 재고 목록: " + list + " " + list.size() + "개 남음");
 				}
 			}
-				System.out.println("주고 난 후 과일 재고 목록: " + list + " " + list.size() + "개 남음");
 				break;
 			case 3: {
 				scanner.nextLine();
 				int count = 10 - list.size();
+				try {
 				System.out.println("몇개의 과일을 추가 할건가용?");
 				System.out.println("지금 " + count + "개 자리 남음");
 				int addfruit = scanner.nextInt();
@@ -75,6 +80,9 @@ public class Main10 {
 					String fruit = scanner.nextLine();
 					list.add(fruit);
 					System.out.println(list + " " + "현재" + list.size() + "개");
+				}
+				} catch (InputMismatchException e1) {
+					System.out.println("숫자만 입력하십쇼; 프로그램 꺼지잖음");
 				}
 				break;
 			}

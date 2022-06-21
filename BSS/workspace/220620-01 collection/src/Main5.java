@@ -13,12 +13,12 @@ public class Main5 {
 //		List<Integer> list = new ArrayList(tens);
 //		System.out.println(list);
 		
-		// asList를 사용
+		// asList를 사용 - static한 메소드
 		// 원소의 추가 및 삭제, 변경 가능
 		List<Integer> list = new ArrayList(Arrays.asList(10, 20, 30, 40, 50));
 		System.out.println(list);
 		
-		// Arrays.asList()로 만든 list는 원소 추가나 삭제가 불가능하다.
+		// Arrays.asList()로 만든 list는 원소 추가나 삭제가 불가능하다. - 불변
 //		List<Integer> test = Arrays.asList(10, 20, 30, 40, 50);
 ////		test.add(60); // 추가 및 삭제 , 변경 불가능
 //		System.out.println(test);

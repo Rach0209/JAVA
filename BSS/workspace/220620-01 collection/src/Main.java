@@ -38,6 +38,7 @@ public class Main {
 //			System.out.println(list.get(i));
 //		}
 		
+		// for-each 문도 사용가능하다.
 		for (Object o : list) {
 			System.out.println(o);
 		}

@@ -9,22 +9,21 @@ public class Main8 {
 		// 합, 평균
 		int sum = 0;
 		for (int i = 0; i < list.size(); i++) {
-			sum = list.get(i);
-			sum += sum;
+			sum += list.get(i);
 		}
 		System.out.println("합: " + sum);
 		int average = sum / list.size();
 		System.out.println("평균: " + average);
 
 		// 정수 57이 리스트에 있는지? 있으면 몇 번째 index에 위치하는지?
-		System.out.println(list.contains(57));
-		System.out.println(list.indexOf(57));
+		System.out.println("57이 존재 함? " + list.contains(57));
+		System.out.println("57의 인덱스? " + list.indexOf(57));
 		// iterator 사용		
 		Iterator<Integer> iterator = list.iterator();
 		while (iterator.hasNext()) {
 			int iter = iterator.next();
 			if (iter == 57) {
-				System.out.println("index번호: " + list.indexOf(iter));
+				System.out.println("iterator 사용한 index번호: " + list.indexOf(iter));
 			}
 		}
 		// 정수 23의 개수

@@ -14,6 +14,7 @@ public class Main6 {
 		System.out.println(list);
 
 		// 2진 검색으로 index번호를 찾아준다.
+		// 모든 원소를 다 순환하지 않는다. but **조건필요** : 정렬된 상태, 중복 없음.
 		int index = Collections.binarySearch(list, 8);
 		System.out.println("8의 인덱스: " + index);
 		
@@ -37,10 +38,11 @@ public class Main6 {
 		Collections.replaceAll(list, 33, 77);
 		System.out.println(list);
 		
+		
 //		list.clear(); // 밑에 target은 길이가 3.
 		// 최소 길이가 3칸은 있어야 복사가 가능하다. 그렇지 않으면 에러.
-		
 		// 복사해서 list에 집어넣기. << 앞에서 부터 원소를 덮어 씌워준다.
+		// copy 원본은 최소 길이가 같아야함  
 		List<Integer> target = new ArrayList<>(Arrays.asList(90, 80, 70));
 		Collections.copy(list, target);
 		System.out.println(list);

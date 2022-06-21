@@ -67,7 +67,7 @@ public class Main9 {
 			}
 		}
 		System.out.println("while 대신 for 문: " + empty);
-
+		System.out.println();
 		// ***************************************************************************
 		List<String> list2 = new ArrayList<>(Arrays.asList("가", "1", "@", "3", "나", "1000", "1a0b"));
 
