@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiaryManageImpl implements DiaryManage {
-	private List<Diary> list;
+	private List<Diary> list; // List가 필요해서 필드 만들고 초기화
 
 	public DiaryManageImpl() {
 		list = new ArrayList<>();
@@ -19,7 +19,6 @@ public class DiaryManageImpl implements DiaryManage {
 	@Override
 	public List<Diary> list() {
 		return list;
-
 	}
 
 	@Override
