@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-// 콘솔 입출력용
+// 콘솔 입출력용 클래스
 public class ConsolePresenter {
-	// List를 들고있는 DiaryManageImpl을 필드로 만들고 초기화
 	private DiaryManage manager;
 
+	// ***** List를 들고있는 DiaryManageImpl을 필드로 만들고 초기화 *****
 	public ConsolePresenter() {
 		manager = new DiaryManageImpl();
 	}
@@ -53,7 +53,7 @@ public class ConsolePresenter {
 		String weather = scan.nextLine();
 		System.out.println("내용?");
 		String content = scan.nextLine();
-
+		// 다루고자 하는 타입으로 변환
 		LocalDate day = LocalDate.parse(date);
 		// 관리자에게 추가해달라해서 리스트에 추가
 		manager.add(new Diary(day, title, weather, content));

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class TestManage {
 	public static void main(String[] args) {
 		DiaryManage m = new DiaryManageImpl();
-		
+		// 기능이 수행되지 않을 때, 그 기능만 수정하면 끝.
 		m.add(new Diary(LocalDate.now(), "6월21일 일기", "맑음", "적을 말이 없네"));
 		
 		m.add(new Diary(LocalDate.of(2022, 6, 20), "6월20일 일기", "맑음", "내용 내용2"));

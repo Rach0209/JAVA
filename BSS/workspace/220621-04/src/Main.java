@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
 interface LeafletHandler {
+	// 전단지는 문자열을 반환하게함
 	String give();
 }
 
@@ -14,7 +15,7 @@ class LoanAD implements LeafletHandler {
 		super();
 		this.phone = phone;
 	}
-
+	// 문자열 반환
 	@Override
 	public String give() {
 		return phone;
@@ -29,6 +30,7 @@ class VoteAD implements LeafletHandler {
 		super();
 		this.day = day;
 	}
+	// 날짜를 필드로 가지고 있다가 문자형태로 변환하여 반환
 	@Override
 	public String give() {
 		return "투표날짜: " + day.toString();
@@ -37,6 +39,8 @@ class VoteAD implements LeafletHandler {
 // -----------------
 // 광고대행사
 // 일수광고/선거광고 그때그때마다;
+
+// 인터페이스 구현체들을 필드로 가지는 클래스 생성 - 광고대행사
 class AdCompany {
 	LeafletHandler ad;
 

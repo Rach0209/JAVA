@@ -3,7 +3,8 @@ package teacherdiary;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+// 기능에 집중한 클래스 생성.
+// 기능오류가 생기면 여기서 수정
 public class DiaryManageImpl implements DiaryManage {
 	private List<Diary> list; // List가 필요해서 필드 만들고 초기화
 
