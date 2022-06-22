@@ -13,7 +13,7 @@ public class Main2 {
 		list.remove("C");
 		
 		System.out.println(list);
-		
+		// 추가와 삭제가 빈번해서, 첫번째원소, 마지막원소의 추가와 제거 메소드가 추가되어있음
 		LinkedList<String> down = (LinkedList<String>) list;
 		down.addFirst("asdf");
 		// Queue => 선입선출

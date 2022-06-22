@@ -90,7 +90,7 @@ public class Main2 {
 		Collections.reverse(list);
 		System.out.println(list);
 		
-		// 나이로 정렬하고 싶다!
+		// 다른 기준인 나이로 정렬하고 싶다!
 		// 파라미터에 바로 넣기 = 일회용 사용
 //		Collections.sort(list, new Comparator<Student>() {
 //
@@ -100,9 +100,8 @@ public class Main2 {
 //			}
 //		});
 		
-		// 익명 클래스이며 지역으로 존재, Comparator로 정렬
+		// 익명 클래스이며 지역으로 존재, Comparator로 정렬 나이순
 		Comparator<Student> comparator = new Comparator<Student>() {
-
 			@Override
 			public int compare(Student o1, Student o2) {
 				return o1.getAge() - o2.getAge();
