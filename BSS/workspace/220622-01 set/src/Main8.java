@@ -91,6 +91,8 @@ public class Main8 {
 		treeByPrice.add(b4);
 		System.out.println("가격순 정렬 : Comparator 익명클래스 사용");
 		System.out.println(treeByPrice);
+		// set은 순서 상관없음. 특징 : 집합이다. 원소 크기와 갯수만 같으면 됨.
+		System.out.println("두 개의 set은 동등한가요? " + tree.equals(treeByPrice));
 		
 //		// b1책과 b2,b3책 동등함 비교
 //		System.out.println(b1.equals(b2));

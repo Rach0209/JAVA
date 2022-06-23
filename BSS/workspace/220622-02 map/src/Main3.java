@@ -45,19 +45,19 @@ public class Main3 {
 						price += chinaRes.get(menu);
 					}
 				}
-				continue;
+				break;
 			case 2:
 				scan.nextLine();
 				System.out.println("추가할 메뉴 이름 입력");
 				String newMenu = scan.nextLine();
 				price += chinaRes.get(newMenu);
 				count++;
-				continue;
+				break;
 			case 3:
 				System.out.println("계산한다요~");
 				System.out.println("총 " + count + "개");
 				System.out.println("총 금액: " + price + "원 가져오라~");
-				continue;
+				break;
 			case 0:
 				System.out.println("들어가고 ~");
 				return;
