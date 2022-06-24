@@ -15,18 +15,18 @@ public class Main7 extends JFrame {
 		JPanel pnlTop = new JPanel();
 		JPanel pnlBottom = new JPanel();
 		JPanel pnlBox = new JPanel();
-		
+
 		BoxLayout box = new BoxLayout(pnlBox, BoxLayout.Y_AXIS);
 		pnlBox.setLayout(box);
 		pnlBox.add(pnlTop);
 		pnlBox.add(pnlBottom);
-		
+
 		// JTextField 텍스트를 입력할 수 있는 공간 제공
 		JTextField tf1 = new JTextField(30); // () 기본생성자 // (int값) = 가로길이
 		JTextField tf2 = new JTextField(30);
 		JButton btn1 = new JButton("버튼1");
 		JButton btn2 = new JButton("버튼2");
-		
+
 		// 버튼 누르면 사용자 입력값 출력 액션리스너
 		btn1.addActionListener(new ActionListener() {
 			@Override
@@ -39,24 +39,22 @@ public class Main7 extends JFrame {
 				// null 값일 때, Dialog는 중앙에 나타난다. // 메소드 바깥의 참조를 하기 때문에 Main7.this라고 적어줬다.
 			}
 		});
-		
-		
-		
+
 		// Component 추가
 		pnlTop.add(tf1);
 		pnlTop.add(btn1);
 		pnlBottom.add(tf2);
 		pnlBottom.add(btn2);
-		
+
 		add(pnlBox);
-		
+
 		// ********** pack Method ***********
 		// 사이즈를 결정 할 수 있는 메소드.
 		// 창을 내부의 크기에 맞춰서 조절해준다.
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
-	
+
 	public static void main(String[] args) {
 		new Main7().setVisible(true);
 	}

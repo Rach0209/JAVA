@@ -38,7 +38,7 @@ public class Main6 extends JFrame {
 		
 		
 		// ****************** GridLayout ********************
-		// 같은 크기로 
+		// 생성자에 설정 한 행 열 값으로 균등하게 나누어 준다.
 		GridLayout grid = new GridLayout(2, 2);
 		pnl.setLayout(grid);
 		pnl.setLayout(null); // 레이아웃을 없애버림; 버튼이 보이지 않음. => 버튼의 위치를 잡아주면 보임.
