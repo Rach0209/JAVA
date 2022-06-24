@@ -55,7 +55,14 @@ public class Main4 extends JFrame {
 				state = e.getStateChange() == ItemEvent.SELECTED;
 			}
 		};
-
+		ItemListener reset = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				state = e.getStateChange() != ItemEvent.SELECTED;
+				tf.setText("");
+			}
+		};
+		
 		ActionListener aListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -83,8 +90,10 @@ public class Main4 extends JFrame {
 
 		rdb1.addItemListener(iListener);
 		rdb3.addItemListener(iListener);
+		rdb1.addItemListener(reset);
+		rdb3.addItemListener(reset);
 		calc.addActionListener(aListener);
-
+		
 		add(pnlMain);
 
 		pack();
