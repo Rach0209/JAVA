@@ -58,6 +58,7 @@ public class Login extends JFrame {
 	}
 
 	public Login() {
+		super("Let's Quiz");
 		// 존재 아이디 만들기
 		Member member = new Member("qwer123", "q1w2e31");
 		user.put("qwer123", member);
@@ -103,19 +104,28 @@ public class Login extends JFrame {
 				// 아이디 비밀번호 확인 검사후 성공 실패 메시지출력하기
 				if (e.getActionCommand().equals("Login")) {
 					if (user.containsKey(tf.getText())) {
+						if (member.getPassword().equals(pf.getText())) {
+
+							JOptionPane.showMessageDialog(Login.this, "로그인 성공");
+						} else {
+							
+							JOptionPane.showMessageDialog(Login.this, "아이디 또는 비밀번호를 확인하세요.");
+						}
+					} else {
 						
-						JOptionPane.showMessageDialog(Login.this, "로그인 성공");
+						JOptionPane.showMessageDialog(Login.this, "아이디 또는 비밀번호를 확인하세요.");
 					}
-					JOptionPane.showMessageDialog(Login.this, "아이디 비밀번호를 확인하세요.");
 				}
 				// 회원가입 창으로 넘어가기
 				if (e.getActionCommand().equals("Sign Up")) {
 					layout.next(main);
 				}
+				// 회원가입
 				if (e.getActionCommand().equals("가입하기")) {
 					if (makeId.getText().length() >= 4 && makeId.getText().length() <= 12
 							&& makePf.getText().length() >= 4 && makePf.getText().length() <= 12) {
-						if (!makeId.getText().equals(member.getId()) && makePf.getText().equals(checkPf.getText()) && !makeId.getText().isEmpty() && !makePf.getText().isEmpty()) {
+						if (!makeId.getText().equals(member.getId()) && makePf.getText().equals(checkPf.getText())
+								&& !makeId.getText().isEmpty() && !makePf.getText().isEmpty()) {
 							addUser(makeId.getText(), makePf.getText());
 							JOptionPane.showMessageDialog(Login.this, "가입 성공");
 							layout.previous(main);
@@ -156,7 +166,5 @@ public class Login extends JFrame {
 
 	public static void main(String[] args) {
 		new Login().setVisible(true);
-
 	}
-
 }
