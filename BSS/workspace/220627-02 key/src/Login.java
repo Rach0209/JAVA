@@ -1,9 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -14,8 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 // 회원 등록 프로그램
 // 1. 비밀번호와 확인 일치
@@ -47,14 +43,36 @@ class Member {
 		this.password = password;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Member))
+			return false;
+		Member other = (Member) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
+	}
+	
+	
+
 }
 
 public class Login extends JFrame {
 	Map<String, Member> user = new HashMap<>();
 
 	void addUser(String id, String password) {
-		Member newMember = new Member(id, password);
-		user.put(id, newMember);
+		Member member = new Member(id, password);
+		user.put(id, member);
 	}
 
 	public Login() {
@@ -86,6 +104,7 @@ public class Login extends JFrame {
 		JPasswordField makePf = new JPasswordField(10);
 		JPasswordField checkPf = new JPasswordField(10);
 		JButton btnSign = new JButton("가입하기");
+		JButton cancel = new JButton("이전");
 		pnl2.add(lbl1);
 		pnl2.add(makeId);
 		pnl2.add(lbl2);
@@ -93,6 +112,7 @@ public class Login extends JFrame {
 		pnl2.add(lbl3);
 		pnl2.add(checkPf);
 		pnl2.add(btnSign);
+		pnl2.add(cancel);
 
 		main.add(pnl1, "main");
 		main.add(pnl2, "sign Up");
@@ -104,21 +124,26 @@ public class Login extends JFrame {
 				// 아이디 비밀번호 확인 검사후 성공 실패 메시지출력하기
 				if (e.getActionCommand().equals("Login")) {
 					if (user.containsKey(tf.getText())) {
-						if (member.getPassword().equals(pf.getText())) {
-
+						if (tf.getText().equals(user.get(tf.getText()).getId()) && pf.getText().equals(user.get(tf.getText()).getPassword())) {
 							JOptionPane.showMessageDialog(Login.this, "로그인 성공");
+							Quiz quiz = new Quiz();
+							quiz.setVisible(true);
+							quiz.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+							tf.setText("");
+							pf.setText("");
 						} else {
-							
 							JOptionPane.showMessageDialog(Login.this, "아이디 또는 비밀번호를 확인하세요.");
 						}
 					} else {
-						
 						JOptionPane.showMessageDialog(Login.this, "아이디 또는 비밀번호를 확인하세요.");
 					}
 				}
 				// 회원가입 창으로 넘어가기
 				if (e.getActionCommand().equals("Sign Up")) {
 					layout.next(main);
+				}
+				if (e.getActionCommand().equals("이전")) {
+					layout.previous(main);
 				}
 				// 회원가입
 				if (e.getActionCommand().equals("가입하기")) {
@@ -128,6 +153,9 @@ public class Login extends JFrame {
 								&& !makeId.getText().isEmpty() && !makePf.getText().isEmpty()) {
 							addUser(makeId.getText(), makePf.getText());
 							JOptionPane.showMessageDialog(Login.this, "가입 성공");
+							makeId.setText("");
+							makePf.setText("");
+							checkPf.setText("");
 							layout.previous(main);
 						} else if (makeId.getText().equals(member.getId())) {
 							makeId.setText("");
@@ -147,11 +175,11 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(aListener);
 		btnSignUp.addActionListener(aListener);
 		btnSign.addActionListener(aListener);
-
+		cancel.addActionListener(aListener);
+		
 		getContentPane().add(main);
 
 		pack();
-//		setSize(500, 500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
