@@ -1,0 +1,22 @@
+hashset
+list
+
+게임개수?
+
+6개 랜덤 오름차순
+	Set<Integer> lotto = new HashSet<>();
+		Random random = new Random();
+		
+		while (lotto.size() < 6) {
+		lotto.add(random.nextInt(45) + 1);
+		}
+		List<Integer> list = new ArrayList<>(lotto);
+		Collections.sort(list);
+		System.out.println(list);
+
+직전회차번호?
+
+무조건 한 줄이상 구매 다이얼로그?
+
+
+
