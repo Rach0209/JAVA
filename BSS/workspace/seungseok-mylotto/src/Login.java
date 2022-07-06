@@ -51,6 +51,7 @@ public class Login extends JFrame {
 		userInfo.get("admin").setName("관리자");
 		userInfo.get("admin").setPw("qwqw1234");
 		userInfo.get("admin").setPhoneNum("11111111111");
+		userInfo.get("admin").setHaveMoney(100000);
 		setTitle("로그인 화면");
 		
 
@@ -156,7 +157,7 @@ public class Login extends JFrame {
 		menuPnl.add(lblImgLabel);
 //		pnl.add(bgLbl);
 
-		setSize(602, 421);
+		setSize(600, 420);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}

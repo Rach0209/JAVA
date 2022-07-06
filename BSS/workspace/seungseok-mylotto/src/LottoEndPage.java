@@ -6,10 +6,12 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.SpringLayout;
@@ -18,6 +20,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
@@ -38,6 +41,7 @@ public class LottoEndPage extends JDialog {
 	public LottoEndPage(JFrame owner, User user, List<Integer> winNumber, int bonusNumber, int gameCount,
 			Map<String, User> userInfo) {
 		super(owner, true);
+		setTitle("당첨 결과");
 		JPanel pnlLotto = new JPanel();
 		JPanel pnlTop = new JPanel(); // 당첨번호
 
@@ -94,11 +98,11 @@ public class LottoEndPage extends JDialog {
 		for (int i = 0; i < pnlResultBox.length; i++) {
 			pnlResultBox[i] = new JPanel();
 		}
-
-		JLabel[] lblResult = new JLabel[5];
-		for (int i = 0; i < lblResult.length; i++) {
-			lblResult[i] = new JLabel((i + 1) + " 미지정");
-		}
+		// 574673e;
+//		JLabel[] lblResult = new JLabel[5];
+//		for (int i = 0; i < lblResult.length; i++) {
+//			lblResult[i] = new JLabel((i + 1) + " 미지정");
+//		}
 
 		// 번호를 넣을 라벨을 만들기
 //		JPanel[] lblResultNum = new JPanel[5];
@@ -179,7 +183,8 @@ public class LottoEndPage extends JDialog {
 		for (int i = 0; i < user.getLottoNumber().size(); i++) {
 			pnlCenter.add(pnlResultBox[i]);
 			pnlResultBox[i].setLayout(new BorderLayout(0, 0));
-			pnlResultBox[i].add(lblResult[i], BorderLayout.WEST);
+//			pnlResultBox[i].add(lblResult[i], BorderLayout.WEST);
+			pnlResultBox[i].add(Lotto.lblResult2[i], BorderLayout.WEST);
 			pnlResultBox[i].add(lblInputNum[i]);
 			pnlResultBox[i].add(winCountLbl[i], BorderLayout.EAST);
 		}
@@ -215,11 +220,18 @@ public class LottoEndPage extends JDialog {
 		JButton btnReplay = new JButton("다시하기");
 		sl_pnlLotto.putConstraint(SpringLayout.NORTH, btnReplay, 6, SpringLayout.SOUTH, pnlSouth);
 		sl_pnlLotto.putConstraint(SpringLayout.WEST, btnReplay, 148, SpringLayout.WEST, pnlLotto);
-		btnReplay.addActionListener(new ActionListener() {
+		
+		ActionListener escListener = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
-		});
+		};
+
+		this.getRootPane().registerKeyboardAction(escListener, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+		btnReplay.addActionListener(escListener);
 
 		pnlLotto.add(btnReplay);
 

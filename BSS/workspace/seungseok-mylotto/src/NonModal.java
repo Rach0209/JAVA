@@ -1,26 +1,29 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -28,9 +31,6 @@ public class NonModal extends JDialog {
 	NonModal(JFrame owner) {
 		super(owner, false);
 		setTitle("프리미엄 전용");
-
-		LocalDateTime d = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm");
 
 		// 누적 회차에 나온 수 중 많이 나온 순 리스트 저장 후, 가장 많이 나왔던 순서대로 오름차순 정렬후
 		// 추천번호에 입력.
@@ -43,18 +43,6 @@ public class NonModal extends JDialog {
 				recNum.add(Lotto.lottoFive.get(i).get(j));
 			}
 		}
-//		System.out.println(recNum);
-
-//		recNumber.addAll(recNum);
-//		int[] recommendArray = new int[recNum.size()];
-//		for (int i = 0; i < recNumber.size(); i++) {
-//			int number = recNumber.get(i);
-//			recommendArray[i] = number;
-//		}
-//		for (int i = 0; i < recommendArray.length; i++) {
-//			Set<Integer> num = new HashSet<>();
-//			num.add(recommendArray[i]);
-//		}
 
 		//////////////////////////////
 		Map<Integer, Integer> map = new HashMap<>();
@@ -81,7 +69,6 @@ public class NonModal extends JDialog {
 			}
 		}
 
-//		System.out.println(map);
 
 		for (int i = 0; i < recNumber.size(); i++) {
 			for (int j = i + 1; j < recNumber.size(); j++) {
@@ -94,80 +81,81 @@ public class NonModal extends JDialog {
 			}
 		}
 
-//		System.out.println(recNumber);
 
 		List<Integer> todayNumber = new ArrayList<>();
 		for (int i = 0; i < 6; i++) {
 			todayNumber.add(recNumber.get(i));
 		}
 		Collections.sort(todayNumber);
-//		System.out.println(todayNumber);
-
-//		for (int i = 0; i <= 45; i++) {
-//			if (!map.containsKey(i)) {
-//				map.put(i, 1);
-//			} else {
-//				map.put(i, map.get(i) + 1);
-//			}
-//		}
-//		
-		////////////
-
-//		Random random = new Random();
-//		List<Integer> todayNumber = new LinkedList<>();
-//		while (todayNumber.size() < 6) {
-//			int r = (random.nextInt(45)) + 1;
-//			if (!todayNumber.contains(r)) {
-//				todayNumber.add(r);
-//			}
-//		}
-//		Collections.sort(todayNumber);
-////		System.out.println(todayNumber);
 
 		TitledBorder tbNonModal = new TitledBorder(new LineBorder(Color.black), "추천 번호");
 		tbNonModal.setTitleColor(new Color(245, 136, 110));
 
 		JPanel pnl = new JPanel();
-		JLabel lblToday = new JLabel("현재 시간: " + d.format(formatter));
-		JLabel lblNum = new JLabel("" + todayNumber);
-		lblNum.setFont(new Font("굴림", Font.BOLD, 20));
-		JButton pnlBtn = new JButton("확인");
+		JLabel lblToday = new JLabel("로또 " + Lotto.gameCount + "회차 기준 추천번호");
+		JPanel numPnl = new JPanel();
+		JLabel lblNum[] = new JLabel[todayNumber.size()];
+		
 
 		pnl.setBorder(tbNonModal);
-		pnl.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnl.setLayout(new BoxLayout(pnl, BoxLayout.Y_AXIS));
 
 		JPanel panel = new JPanel();
 		pnl.add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(lblToday);
-		panel.add(lblNum);
-		pnl.add(pnlBtn);
+		panel.setLayout(new BorderLayout(0, 0));
+		panel.add(lblToday, BorderLayout.NORTH);
+		
+		for (int i = 0; i < todayNumber.size(); i++) {
+			lblNum[i] = new JLabel();
+			URL url = NonModal.class.getClassLoader().getResource("images/middle" + String.format("%02d", todayNumber.get(i)) + ".png");
+			ImageIcon icon = new ImageIcon(url);
+			lblNum[i].setIcon(icon);
+			numPnl.add(lblNum[i]);
+		}
+		
+		panel.add(numPnl);
 
-		pnlBtn.addActionListener(new ActionListener() {
+		JPanel panelbtn = new JPanel();
+		pnl.add(panelbtn);
+
+		JButton btnCopy = new JButton("추천 번호 복사");
+		panelbtn.add(btnCopy);
+		JButton pnlBtn = new JButton("확인");
+		panelbtn.add(pnlBtn);
+
+		ActionListener escListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
+		};
+
+		pnlBtn.addActionListener(escListener);
+
+		// 추천번호 복사 액션리스너 => 바로 체크박스에 체크 시키기.
+		btnCopy.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (JCheckBox checkBox : Lotto.listOfChkBox) {
+					checkBox.setSelected(false);
+				}
+				for (int i = 0; i < todayNumber.size(); i++) {
+					List<Integer> list = todayNumber;
+					JCheckBox chkBox = Lotto.listOfChkBox.get(list.get(i) - 1);
+					chkBox.setSelected(true);
+				}
+				Lotto.rdbManual.setSelected(true);
+			}
 		});
+
+		this.getRootPane().registerKeyboardAction(escListener, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 		getContentPane().add(pnl);
 		pack();
-//		setSize(230,120);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLocation(500, 500);
-
+		Dimension frameSize = this.getSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 5);
 	}
 }
-
-//List<Integer> todayNumber = new LinkedList<>();
-//Random random = new Random();
-//while (todayNumber.size() < 6) {
-//	int r = (random.nextInt(45)) + 1;
-//	if (!todayNumber.contains(r)) {
-//		todayNumber.add(r);
-//	}
-//}
-//Collections.sort(todayNumber);
-////System.out.println(todayNumber);
-//JOptionPane.showMessageDialog(Lotto.this, String.valueOf(todayNumber), "오늘의 추천번호",
-//		JOptionPane.QUESTION_MESSAGE);
