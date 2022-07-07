@@ -558,9 +558,9 @@ public class Lotto extends JFrame {
 						spinner.setModel(new SpinnerNumberModel(0, 0, 0, 0));
 						JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spinner.getEditor();
 						editor.getTextField().setEditable(false);
-						spinnerNum = 1;
 					}
 				}
+				spinnerNum =1;
 			}
 		});
 
@@ -903,9 +903,11 @@ public class Lotto extends JFrame {
 					spinner.setModel(new SpinnerNumberModel(1, 1, 5, 1));
 					JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spinner.getEditor();
 					editor.getTextField().setEditable(false);
+					spinnerNum = 1;
 				}
 			}
 		});
+		btnGameClear.addActionListener(reset);
 
 		// 결과 확인 버튼
 
@@ -979,9 +981,7 @@ public class Lotto extends JFrame {
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, yesNo, yesNo[0]);
 				if (result == JOptionPane.YES_OPTION) {
 					dispose();
-					Lotto.this.dispose();
 					new Login(userInfo).setVisible(true);
-					Lotto.this.dispose();
 				} else if (result == JOptionPane.NO_OPTION) {
 					System.exit(0);
 				}
