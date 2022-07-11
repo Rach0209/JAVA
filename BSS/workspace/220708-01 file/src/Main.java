@@ -2,7 +2,7 @@ import java.io.File;
 
 public class Main {
 	public static void main(String[] args) {
-//		File file = new File("d:\\Java\\test.txt");
+//		File file = new File("d:\\Java\\test.txt"); // 절대경로
 //		
 //		System.out.println(file.getName());
 //		System.out.println(file.getPath());

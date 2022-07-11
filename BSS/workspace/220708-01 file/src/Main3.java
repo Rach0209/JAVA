@@ -15,8 +15,10 @@ public class Main3 {
 //		File abc = new File("d:\\filetest\\abc");
 //		abc.mkdir();
 		
+		// 상대경로로 폴더 만들기
 //		File file2 = new File("d:\\filetest\\abc\\..\\def");
 //		file2.mkdir();
+		
 		
 		File textFile = new File("d:\\filetest\\mytext.txt");
 		try {
