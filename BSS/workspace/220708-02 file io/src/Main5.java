@@ -8,6 +8,7 @@ public class Main5 {
 	public static void main(String[] args) {
 		File file = new File("d:\\filetest\\lineio.txt");
 
+		// '버퍼'공간을 가짐
 		BufferedReader br = null;
 
 		try {

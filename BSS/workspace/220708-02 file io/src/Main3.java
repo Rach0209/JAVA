@@ -13,7 +13,8 @@ public class Main3 {
 			int length = (int) file.length(); // 파일객체의 용량인 길이값을 long값으로 알려줌. // 여기선 int로 하향형변함.
 			byte[] buf = new byte[length]; // 배열 생성. 바이트 길이만큼 
 			
-			
+			// read는 한 바이트씩 읽는다.
+			// end of file 파일이 끝날 때까지 읽어줌. -1을 반환
 			fis = new FileInputStream(file);
 			fis.read(buf);
 			

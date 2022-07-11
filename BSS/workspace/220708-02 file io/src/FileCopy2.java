@@ -16,6 +16,7 @@ public class FileCopy2 {
 
 			int c;
 			// read()는 문자하나를 읽어오는데, int형으로 반환해준다. char 형식은 단위가 모자람. 
+			// byte보다 큰, 문자 단위로 읽음.
 			while ((c = inputStream.read()) != -1) {
 				System.out.println("읽은 문자 확인 : " + (char) c);
 
@@ -27,7 +28,7 @@ public class FileCopy2 {
 			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
-				try {
+				try { // 여기서도 마찬가지로 close()호출 필수
 					inputStream.close();
 				} catch (IOException e) {
 					e.printStackTrace();

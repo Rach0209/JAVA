@@ -7,7 +7,7 @@ public class Main4 {
 	public static void main(String[] args) {
 		File file = new File("d:\\filetest\\lineio.txt");
 		
-		
+		// '버퍼'라는 공간을 가지고 있음
 		PrintWriter pw = null;
 			// 문자 단위로 접근
 			try {

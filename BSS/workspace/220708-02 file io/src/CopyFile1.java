@@ -20,6 +20,7 @@ public class CopyFile1 {
 			// 파일의 끝을 가져올 때, end of file이라해서 -1의 값을 가져온다.
 			while ((c = in.read()) != -1) { // 처음부터 하나씩 가져오는데, 끝은 -1 ==> 처음부터 끝까지 들고온다.
 				out.write(c); // output.txt인 out에 in.read()로 가져온 c를 써준다. input파일내용이 output파일 내용에 복사됨 = 처음부터끝까지 들고왔기 때문에.
+				// write도 바이트 단위. 하나를 들고와서 읽고 써주는 작업을 해준다.
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -28,7 +29,7 @@ public class CopyFile1 {
 		} finally {
 			if (in != null) {
 				try {
-					in.close();
+					in.close(); // input / output은 항상 닫아줘야 함.
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
