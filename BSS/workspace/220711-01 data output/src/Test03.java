@@ -74,7 +74,7 @@ public class Test03 {
 
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("1. 사용자 정보 입력 2. 전화번호 찾기");
+			System.out.println("1. 사용자 정보 입력 2. 전화번호 찾기 0. 프로그램 종료");
 			int number = sc.nextInt();
 			switch (number) {
 			case 1:
@@ -93,7 +93,7 @@ public class Test03 {
 				ObjectOutputStream oos = null;
 
 				try {
-					oos = new ObjectOutputStream(new FileOutputStream(new File("d:\\filetest\\test03_01.ser")));
+					oos = new ObjectOutputStream(new FileOutputStream(new File("d:\\filetest\\test03_01.txt")));
 					for (int i = 0; i < list.size(); i++) {
 						oos.writeObject(list.get(i));
 					}
@@ -123,7 +123,7 @@ public class Test03 {
 
 				try {
 					int i = 0;
-					ois = new ObjectInputStream(new FileInputStream(new File("d:\\filetest\\test03_01.ser")));
+					ois = new ObjectInputStream(new FileInputStream(new File("d:\\filetest\\test03_01.txt")));
 					while (true) {
 						Human h = (Human) ois.readObject();
 						list2.add(h);
@@ -151,6 +151,9 @@ public class Test03 {
 					}
 				}
 				continue;
+			case 0:
+				System.out.println("프로그램 종료");
+				return;
 			default:
 				System.out.println("잘못된 입력");
 				break;
