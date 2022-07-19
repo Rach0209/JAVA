@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BookConsoleApp {
-	private BooksRepository repo;
+	private BooksRepository repo; // 의존성(Dependency)이 생김 BooksRepository객체가 무조건 있어야함.
 
 	public BookConsoleApp(BooksRepository repo) {
 		this.repo = repo;

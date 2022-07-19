@@ -7,7 +7,7 @@ import java.util.List;
 
 import kr.co.greenart.dbutil.DBUtil;
 
-public class BooksRepository {
+public class BooksRepository { // DAO : Data Access Object // 프로젝트의 주제를 DAO로 만든다!
 	// 북 리턴 메소드만들기 반복작업
 	// 내부적으로 이 클래스안에서만 사용할 것이라서 private
 	private Book resultMapping(ResultSet rs) throws SQLException {

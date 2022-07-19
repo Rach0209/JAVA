@@ -34,7 +34,6 @@ public class RestaurantConsoleApp {
 				} else {
 					updateTitle();
 				}
-				
 				break;
 			case 5:
 				search();
@@ -185,6 +184,9 @@ public class RestaurantConsoleApp {
 		try {
 			restaurant = repo.selectByTitle(title);
 			System.out.println(restaurant);
+			if (restaurant == null) {
+				System.out.println("음식점 데이터에 없는 상호명 입니다.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
