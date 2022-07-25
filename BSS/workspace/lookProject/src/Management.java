@@ -1,11 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,10 +17,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.awt.Component;
-import java.awt.FlowLayout;
 
 public class Management extends JFrame {
+	// 등록창과 수정창 생성자. 만일을 대비해 두 개를 따로 생성. 오류방지목적으로 동시 실행불가 처리해놓음.
+	ManagementOfRegist registWindow = new ManagementOfRegist();
+	ManagementOfRegist editWindow = new ManagementOfRegist();
+
 	Management() {
 		super("관리자용");
 		// 의상관리 타이틀 ---
@@ -72,27 +77,45 @@ public class Management extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////// 창 열고 닫을 때, 버튼 활성<->비활성 체크 //////////////////////////////
 
 		// 등록, 수정 버튼 클릭시, 등록 수정 창 띄우기
-		ActionListener regiEditAction = new ActionListener() {
+		ActionListener regiAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ManagementOfRegist m = new ManagementOfRegist();
-				m.setVisible(true);
-				if (m.isVisible()) {
+				registWindow.setVisible(true);
+				if (registWindow.isVisible()) {
+					btConfirm.setEnabled(false);
+					btEdit.setEnabled(false);
+				}
+			}
+		};
+		ActionListener editAction = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editWindow.setVisible(true);
+				if (editWindow.isVisible()) {
+					btEdit.setEnabled(false);
 					btConfirm.setEnabled(false);
 				}
 			}
 		};
-//		ItemListener regiEditItem = new ItemListener() {
-//			@Override
-//			public void itemStateChanged(ItemEvent e) {
-//				
-//			}
-//		};
-		btConfirm.addActionListener(regiEditAction);
-//		btConfirm.addItemListener(regiEditItem);
+		// ---------------------------------
+		// 창을 닫을 때, 다시 버튼이 활성화 된다.
+		WindowListener toggleBtn = new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				btConfirm.setEnabled(true);
+				btEdit.setEnabled(true);
+			}
+		};
+		// 등록창과 수정창은 각각 따로 생성했다.
+		btConfirm.addActionListener(regiAction);
+		btEdit.addActionListener(editAction);
+		registWindow.addWindowListener(toggleBtn);
+		editWindow.addWindowListener(toggleBtn);
 		//////////////////////////////////
+		
+		
 	}
 }
