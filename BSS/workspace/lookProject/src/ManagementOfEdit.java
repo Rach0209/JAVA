@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
-public class ManagementOfRegist extends JFrame {
+public class ManagementOfEdit extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -19,8 +19,8 @@ public class ManagementOfRegist extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 
-	ManagementOfRegist() {
-		super("관리자용 데이터 등록");
+	ManagementOfEdit() {
+		super("관리자용 데이터 수정");
 		JPanel pnlMain = new JPanel();
 
 		getContentPane().add(pnlMain);
