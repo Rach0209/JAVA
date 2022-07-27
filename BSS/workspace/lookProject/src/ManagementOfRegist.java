@@ -1,23 +1,38 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class ManagementOfRegist extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField tfName;
+	private JTextField tfSize;
+	private JTextField tfColor;
+	private JTextField tfCategory;
+	private JTextField tfSubCategory;
+	private JTextField tfImageUrl;
+	private JTextField tfSeason;
+	private ManagementDaoImpl dao = new ManagementDaoImpl();
 
 	ManagementOfRegist() {
 		super("관리자용 데이터 등록");
@@ -49,6 +64,10 @@ public class ManagementOfRegist extends JFrame {
 		pnlMain.add(pnlImage);
 		pnlImage.setLayout(new BorderLayout(0, 0));
 
+		JLabel lblImageDisplay = new JLabel("");
+		lblImageDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlImage.add(lblImageDisplay);
+
 		JPanel pnlRegiEditArea = new JPanel();
 		pnlRegiEditArea.setBounds(425, 356, 397, 271);
 		pnlMain.add(pnlRegiEditArea);
@@ -57,62 +76,71 @@ public class ManagementOfRegist extends JFrame {
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_1 = new JTextField();
-
-		JLabel lblSize = new JLabel("Size");
-		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSize.setFont(new Font("궁서체", Font.ITALIC, 24));
-
-		textField = new JTextField();
+		tfSize = new JTextField();
 
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColor.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_2 = new JTextField();
+		tfColor = new JTextField();
 
 		JLabel lblCategory = new JLabel("Category");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_3 = new JTextField();
+		tfCategory = new JTextField();
 
 		JLabel lblImage = new JLabel("Image");
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_4 = new JTextField();
-
 		JLabel lblSeason = new JLabel("Season");
 		lblSeason.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeason.setFont(new Font("궁서체", Font.ITALIC, 24));
-
-		textField_5 = new JTextField();
 
 		JButton btnRegist = new JButton("Regist");
 		btnRegist.setFont(new Font("궁서체", Font.ITALIC, 20));
 		pnlRegiEditArea.setLayout(new GridLayout(0, 2, 0, 3));
 		pnlRegiEditArea.add(lblName);
-		pnlRegiEditArea.add(textField_1);
+
+		tfName = new JTextField();
+		pnlRegiEditArea.add(tfName);
+
+		JLabel lblSize = new JLabel("Size");
+		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSize.setFont(new Font("궁서체", Font.ITALIC, 24));
 		pnlRegiEditArea.add(lblSize);
-		pnlRegiEditArea.add(textField);
+		pnlRegiEditArea.add(tfSize);
 		pnlRegiEditArea.add(lblColor);
-		pnlRegiEditArea.add(textField_2);
+		pnlRegiEditArea.add(tfColor);
 		pnlRegiEditArea.add(lblCategory);
-		pnlRegiEditArea.add(textField_3);
+		pnlRegiEditArea.add(tfCategory);
+
+		JLabel lblNewLabel = new JLabel("SubCategory");
+		lblNewLabel.setFont(new Font("궁서체", Font.ITALIC, 24));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlRegiEditArea.add(lblNewLabel);
+
+		tfSubCategory = new JTextField();
+		pnlRegiEditArea.add(tfSubCategory);
 		pnlRegiEditArea.add(lblImage);
-		pnlRegiEditArea.add(textField_4);
+
+		tfImageUrl = new JTextField();
+		pnlRegiEditArea.add(tfImageUrl);
 		pnlRegiEditArea.add(lblSeason);
-		pnlRegiEditArea.add(textField_5);
+
+		tfSeason = new JTextField();
+		pnlRegiEditArea.add(tfSeason);
+		tfSeason.setColumns(10);
 		// 공백 라벨
-		JLabel label_14 = new JLabel("");
-		pnlRegiEditArea.add(label_14);
+		JLabel lblblock = new JLabel("");
+		pnlRegiEditArea.add(lblblock);
 		pnlRegiEditArea.add(btnRegist);
 
 		JPanel pnlHelp = new JPanel();
 		pnlHelp.setBounds(425, 60, 397, 286);
 		pnlMain.add(pnlHelp);
-		pnlHelp.setLayout(new GridLayout(7, 0, 0, 0));
+		pnlHelp.setLayout(new GridLayout(8, 0, 0, 0));
 
 		JLabel lblHelp = new JLabel("사용 설명서");
 		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -130,9 +158,13 @@ public class ManagementOfRegist extends JFrame {
 		lblHelpColor.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpColor);
 
-		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리");
+		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
 		lblHelpCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpCategory);
+
+		JLabel lblNewLabel_1 = new JLabel("SubCategory : 상품 상세 분류(셔츠, 반팔, 등등 입력)");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlHelp.add(lblNewLabel_1);
 
 		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -144,5 +176,81 @@ public class ManagementOfRegist extends JFrame {
 		setSize(850, 780);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+		//////////////////////////// 프레임 끝 ///////////////////////////////////
+		// -----------------------------------------------------------------//
+		// 등록창
+		// 사진 불러오기 버튼 -------- 파일불러오는 파일선택창
+		JFileChooser chooser = new JFileChooser();
+
+		btLoad.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = chooser.showOpenDialog(pnlMain);
+
+				if (result == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					ImageIcon image = new ImageIcon(path);
+					lblImageDisplay.setIcon(scaleImage(image));
+					tfImageUrl.setText(path);
+				}
+			}
+		});
+
+		// 등록 메소드 만들기
+		btnRegist.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String name = tfName.getText();
+					String size = tfSize.getText();
+					String color = tfColor.getText();
+					String category; // 카테고리 숫자입력으로 편하게 구현;
+					if (Integer.valueOf(tfCategory.getText()) == 1) {
+						category = "top";
+					} else if (Integer.valueOf(tfCategory.getText()) == 2) {
+						category = "bottom";
+					} else if (Integer.valueOf(tfCategory.getText()) == 3) {
+						category = "bag";
+					} else if (Integer.valueOf(tfCategory.getText()) == 4) {
+						category = "shoes";
+					} else if (Integer.valueOf(tfCategory.getText()) == 5) {
+						category = "acc";
+					} else {
+						category = "임시분류";
+					}
+					String subCategory = tfSubCategory.getText();
+					String imageUrl = tfImageUrl.getText();
+					String season = tfSeason.getText();
+					File file = new File(imageUrl);
+					dao.create(name, size, color, category, subCategory, imageUrl, file, season);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		// 화면을 껏다키면 아까 썼던 글이나 사진을 원상태로 돌리기.
+		WindowListener resetAll = new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				tfName.setText("");
+				tfSize.setText("");
+				tfColor.setText("");
+				tfCategory.setText("");
+				tfSubCategory.setText("");
+				tfImageUrl.setText("");
+				tfSeason.setText("");
+				lblImageDisplay.setIcon(null);;
+			}
+		};
+		this.addWindowListener(resetAll);
+	}
+
+	// 사진 사이즈 조절
+	public ImageIcon scaleImage(ImageIcon icon) {
+
+		return new ImageIcon(
+				icon.getImage().getScaledInstance((int) (401 / 1.2), (int) (567 / 1.2), Image.SCALE_DEFAULT));
 	}
 }

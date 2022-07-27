@@ -1,3 +1,5 @@
+import java.sql.Blob;
+
 // name, size, color, category, sub_category, image, season 값
 public class Item {
 	private int id;
@@ -6,9 +8,9 @@ public class Item {
 	private String color;
 	private String category;
 	private String subCategory;
-	private String imageUrl;
+	private Blob imageUrl;
 	private String season;
-	public Item(int id, String name, String size, String color, String category, String subCategory, String imageUrl,
+	public Item(int id, String name, String size, String color, String category, String subCategory, Blob imageUrl,
 			String season) {
 		super();
 		this.id = id;
@@ -56,10 +58,10 @@ public class Item {
 	public void setSubCategory(String subCategory) {
 		this.subCategory = subCategory;
 	}
-	public String getImageUrl() {
+	public Blob getImageUrl() {
 		return imageUrl;
 	}
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(Blob imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 	public String getSeason() {
@@ -70,7 +72,7 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "ID: " + id + " [name: " + name + ", size: " + size + ", color: " + color + ", subCategory: " + subCategory + ", season: " + season + ", imageUrl= " + imageUrl + "]";
+		return "상품번호: " + id + " 이름: " + name + ", 사이즈: " + size + ", 색상: " + color + ", 분류: " + subCategory + ", season: " + season;
 	}
 	
 	

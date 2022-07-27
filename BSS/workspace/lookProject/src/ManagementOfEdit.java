@@ -1,8 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,12 +17,12 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class ManagementOfEdit extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField tfSize;
+	private JTextField tfName;
+	private JTextField tfColor;
+	private JTextField tfCategory;
+	private JTextField tfImage;
+	private JTextField tfSeason;
 
 	ManagementOfEdit() {
 		super("관리자용 데이터 수정");
@@ -49,6 +54,10 @@ public class ManagementOfEdit extends JFrame {
 		pnlMain.add(pnlImage);
 		pnlImage.setLayout(new BorderLayout(0, 0));
 
+		JLabel lblImageDisplay = new JLabel("");
+		lblImageDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlImage.add(lblImageDisplay, BorderLayout.NORTH);
+
 		JPanel pnlRegiEditArea = new JPanel();
 		pnlRegiEditArea.setBounds(425, 356, 397, 271);
 		pnlMain.add(pnlRegiEditArea);
@@ -57,56 +66,56 @@ public class ManagementOfEdit extends JFrame {
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_1 = new JTextField();
+		tfName = new JTextField();
 
 		JLabel lblSize = new JLabel("Size");
 		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSize.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField = new JTextField();
+		tfSize = new JTextField();
 
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColor.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_2 = new JTextField();
+		tfColor = new JTextField();
 
 		JLabel lblCategory = new JLabel("Category");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_3 = new JTextField();
+		tfCategory = new JTextField();
 
 		JLabel lblImage = new JLabel("Image");
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_4 = new JTextField();
+		tfImage = new JTextField();
 
 		JLabel lblSeason = new JLabel("Season");
 		lblSeason.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeason.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		textField_5 = new JTextField();
+		tfSeason = new JTextField();
 
 		JButton btnRegist = new JButton("Regist");
 		btnRegist.setFont(new Font("궁서체", Font.ITALIC, 20));
 		pnlRegiEditArea.setLayout(new GridLayout(0, 2, 0, 3));
 		pnlRegiEditArea.add(lblName);
-		pnlRegiEditArea.add(textField_1);
+		pnlRegiEditArea.add(tfName);
 		pnlRegiEditArea.add(lblSize);
-		pnlRegiEditArea.add(textField);
+		pnlRegiEditArea.add(tfSize);
 		pnlRegiEditArea.add(lblColor);
-		pnlRegiEditArea.add(textField_2);
+		pnlRegiEditArea.add(tfColor);
 		pnlRegiEditArea.add(lblCategory);
-		pnlRegiEditArea.add(textField_3);
+		pnlRegiEditArea.add(tfCategory);
 		pnlRegiEditArea.add(lblImage);
-		pnlRegiEditArea.add(textField_4);
+		pnlRegiEditArea.add(tfImage);
 		pnlRegiEditArea.add(lblSeason);
-		pnlRegiEditArea.add(textField_5);
+		pnlRegiEditArea.add(tfSeason);
 		// 공백 라벨
-		JLabel label_14 = new JLabel("");
-		pnlRegiEditArea.add(label_14);
+		JLabel lblBlank = new JLabel("");
+		pnlRegiEditArea.add(lblBlank);
 		pnlRegiEditArea.add(btnRegist);
 
 		JPanel pnlHelp = new JPanel();
@@ -144,5 +153,39 @@ public class ManagementOfEdit extends JFrame {
 		setSize(850, 780);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+//////////////////////////////////////////////////////////////////////////////////
+		// 처음 창이 열리면 기본 정보가 자동으로 입력되게 만들기. windowListener를 사용할 듯함.
+		
+		// 사진 수정하려면 불러와야됨.
+		JFileChooser chooser = new JFileChooser();
+
+		btLoad.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = chooser.showOpenDialog(pnlMain);
+
+				if (result == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					ImageIcon image = new ImageIcon(path);
+					lblImageDisplay.setIcon(scaleImage(image));
+					tfImage.setText(path);
+				}
+			}
+		});
+		
+		// Regist버튼 => 수정값으로 DB의 데이터 바꾸기.
+		btnRegist.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+	}
+
+	// 사진 사이즈 조절
+	public ImageIcon scaleImage(ImageIcon icon) {
+		return new ImageIcon(
+				icon.getImage().getScaledInstance((int) (401 / 1.2), (int) (567 / 1.2), Image.SCALE_DEFAULT));
 	}
 }
