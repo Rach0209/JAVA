@@ -23,19 +23,19 @@ DROP TABLE IF EXISTS `all_product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `all_product` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_Name` varchar(45) DEFAULT NULL,
+  `number` int NOT NULL AUTO_INCREMENT,
+  `product_Name` varchar(45) NOT NULL,
   `product_Size` varchar(45) DEFAULT NULL,
   `product_Color` varchar(45) DEFAULT NULL,
-  `product_Category` int DEFAULT NULL,
+  `product_Category` varchar(45) DEFAULT NULL,
   `product_Sub_Category` varchar(45) DEFAULT NULL,
   `product_Image` varchar(100) DEFAULT NULL,
   `product_Season` varchar(45) DEFAULT NULL,
   `record_Data` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `top_Name_UNIQUE` (`product_Name`),
-  KEY `category_fk_idx` (`product_Category`),
-  CONSTRAINT `category_fk` FOREIGN KEY (`product_Category`) REFERENCES `category` (`id`)
+  PRIMARY KEY (`product_Name`),
+  UNIQUE KEY `number_UNIQUE` (`number`),
+  KEY `category.fk_idx` (`product_Category`),
+  CONSTRAINT `category.fk` FOREIGN KEY (`product_Category`) REFERENCES `category` (`category_Name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,7 +45,7 @@ CREATE TABLE `all_product` (
 
 LOCK TABLES `all_product` WRITE;
 /*!40000 ALTER TABLE `all_product` DISABLE KEYS */;
-INSERT INTO `all_product` VALUES (1,'상의_1',NULL,'white',NULL,'반팔셔츠','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\상의\\상의1.jpg','22s/s','2022-07-26 02:40:56'),(2,'상의_2',NULL,'white',NULL,'반팔','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\상의\\상의2.jpg','22s/s','2022-07-26 02:40:56'),(3,'하의_1',NULL,'black',NULL,'데님스커트','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\하의\\하의1.jpg','22s/s','2022-07-26 02:40:25'),(4,'하의_2',NULL,'black',NULL,'데님스커트','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\하의\\하의2.jpg','22s/s','2022-07-26 02:40:25'),(5,'가방_1',NULL,'purple',NULL,NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\가방\\가방1.jpg','22s/s','2022-07-26 02:43:27'),(6,'가방_2',NULL,'brown',NULL,NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\가방\\가방2.jpg','22f/w','2022-07-26 02:43:27'),(7,'신발_1',NULL,'아이보리',NULL,NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\신발\\신발1.jpg','22s/s','2022-07-26 02:41:35'),(8,'신발_2',NULL,'브라운',NULL,NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\신발\\신발2.jpg','22s/s','2022-07-26 02:41:43'),(9,'악세_1',NULL,'green',NULL,'목걸이','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\악세사리\\목걸이1.jpg','22s/s','2022-07-26 02:40:25'),(10,'악세_2',NULL,'sliver',NULL,'목걸이','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\악세사리\\목걸이2.jpg','22s/s','2022-07-26 02:40:25');
+INSERT INTO `all_product` VALUES (5,'가방_1',NULL,'purple','bag',NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\가방\\가방1.jpg','22s/s','2022-07-27 01:57:42'),(6,'가방_2',NULL,'brown','bag',NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\가방\\가방2.jpg','22f/w','2022-07-27 01:57:42'),(1,'상의_1',NULL,'white','top','반팔셔츠','D:\\jinho\\db\\image\\상의1.png','22s/s','2022-07-27 01:57:42'),(2,'상의_2',NULL,'white','top','반팔','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\상의\\상의2.jpg','22s/s','2022-07-27 01:57:42'),(7,'신발_1',NULL,'ivory','shoes',NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\신발\\신발1.jpg','22s/s','2022-07-27 01:57:42'),(8,'신발_2',NULL,'brown','shoes',NULL,'\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\신발\\신발2.jpg','22s/s','2022-07-27 01:57:42'),(9,'악세_1',NULL,'green','acc','목걸이','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\악세사리\\목걸이1.jpg','22s/s','2022-07-27 01:57:42'),(10,'악세_2',NULL,'sliver','acc','목걸이','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\악세사리\\목걸이2.jpg','22s/s','2022-07-27 01:57:42'),(3,'하의_1',NULL,'black','bottom','데님스커트','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\하의\\하의1.jpg','22s/s','2022-07-27 01:57:42'),(4,'하의_2',NULL,'black','bottom','데님스커트','\\\\GREEN-424\\Java\\Your Codes\\_Free(Team)\\3조\\3조 이미지 파일\\하의\\하의2.jpg','22s/s','2022-07-27 01:57:42');
 /*!40000 ALTER TABLE `all_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,13 +57,15 @@ DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cart` (
-  `user_id` int NOT NULL,
-  `product` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(45) NOT NULL,
+  `product` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `user_id.fk_idx` (`user_id`),
   KEY `product_name_fk_idx` (`product`),
-  CONSTRAINT `product_id.fk` FOREIGN KEY (`product`) REFERENCES `all_product` (`id`),
-  CONSTRAINT `user_id.fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `product_name` FOREIGN KEY (`product`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +74,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (1,'test1','상의_1');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,10 +86,11 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-  `id` int NOT NULL,
+  `number` int NOT NULL AUTO_INCREMENT,
   `category_Name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`category_Name`),
+  UNIQUE KEY `id_UNIQUE` (`number`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,41 +112,39 @@ DROP TABLE IF EXISTS `codiset_new`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `codiset_new` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `product1` int DEFAULT NULL,
-  `product2` int DEFAULT NULL,
-  `product3` int DEFAULT NULL,
-  `product4` int DEFAULT NULL,
-  `product5` int DEFAULT NULL,
-  `product6` int DEFAULT NULL,
-  `product7` int DEFAULT NULL,
-  `product8` int DEFAULT NULL,
-  `product9` int DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
-  `tag_theme` int DEFAULT NULL,
+  `product1` varchar(45) DEFAULT NULL,
+  `product2` varchar(45) DEFAULT NULL,
+  `product3` varchar(45) DEFAULT NULL,
+  `product4` varchar(45) DEFAULT NULL,
+  `product5` varchar(45) DEFAULT NULL,
+  `product6` varchar(45) DEFAULT NULL,
+  `product7` varchar(45) DEFAULT NULL,
+  `product8` varchar(45) DEFAULT NULL,
+  `codiset_image` varchar(100) DEFAULT NULL,
+  `user_id` varchar(45) DEFAULT NULL,
+  `tag_theme` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `product1_fk_idx` (`product1`),
-  KEY `product2_fk_idx` (`product2`),
-  KEY `product3_fk_idx` (`product3`),
-  KEY `product4_fk_idx` (`product4`),
-  KEY `product5_fk_idx` (`product5`),
-  KEY `product6_fk_idx` (`product6`),
-  KEY `product7_fk_idx` (`product7`),
-  KEY `product8_fk_idx` (`product8`),
-  KEY `product9_fk_idx` (`product9`),
-  KEY `user_id_fk_idx` (`user_id`),
-  KEY `tag_theme_fk_idx` (`tag_theme`),
-  CONSTRAINT `product1_fk` FOREIGN KEY (`product1`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product2_fk` FOREIGN KEY (`product2`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product3_fk` FOREIGN KEY (`product3`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product4_fk` FOREIGN KEY (`product4`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product5_fk` FOREIGN KEY (`product5`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product6_fk` FOREIGN KEY (`product6`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product7_fk` FOREIGN KEY (`product7`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product8_fk` FOREIGN KEY (`product8`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `product9_fk` FOREIGN KEY (`product9`) REFERENCES `all_product` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `tag_theme_fk` FOREIGN KEY (`tag_theme`) REFERENCES `tag_theme` (`id`),
-  CONSTRAINT `user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `product1.fk_idx` (`product1`),
+  KEY `product.fk2_idx` (`product2`),
+  KEY `product.fk3_idx` (`product3`),
+  KEY `product.fk4_idx` (`product4`),
+  KEY `product.fk5_idx` (`product5`),
+  KEY `product.fk6_idx` (`product6`),
+  KEY `product.fk7_idx` (`product7`),
+  KEY `product.fk8_idx` (`product8`),
+  KEY `user_id_idx` (`user_id`),
+  KEY `tag_theme.fk_idx` (`tag_theme`),
+  CONSTRAINT `codiset_user_id.fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_ID`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `product.fk1` FOREIGN KEY (`product1`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk2` FOREIGN KEY (`product2`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk3` FOREIGN KEY (`product3`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk4` FOREIGN KEY (`product4`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk5` FOREIGN KEY (`product5`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk6` FOREIGN KEY (`product6`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk7` FOREIGN KEY (`product7`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `product.fk8` FOREIGN KEY (`product8`) REFERENCES `all_product` (`product_Name`),
+  CONSTRAINT `tag_theme.fk` FOREIGN KEY (`tag_theme`) REFERENCES `tag_theme` (`codi`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,6 +153,7 @@ CREATE TABLE `codiset_new` (
 
 LOCK TABLES `codiset_new` WRITE;
 /*!40000 ALTER TABLE `codiset_new` DISABLE KEYS */;
+INSERT INTO `codiset_new` VALUES (1,'상의_1','상의_2','하의_1','가방_1','신발_1','악세_1','악세_2',NULL,NULL,'test1','데이트룩');
 /*!40000 ALTER TABLE `codiset_new` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,15 +166,15 @@ DROP TABLE IF EXISTS `heart`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `heart` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
+  `user_id` varchar(45) DEFAULT NULL,
   `codiSet_id` int DEFAULT NULL,
   `record_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `heart_ibfk_2_idx` (`codiSet_id`),
-  CONSTRAINT `heart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `heart_ibfk_2` FOREIGN KEY (`codiSet_id`) REFERENCES `codiset_new` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id.fk_idx` (`user_id`),
+  KEY `codiset_id.fk_idx` (`codiSet_id`),
+  CONSTRAINT `codiset_id.fk` FOREIGN KEY (`codiSet_id`) REFERENCES `codiset_new` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `user_id.fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +183,7 @@ CREATE TABLE `heart` (
 
 LOCK TABLES `heart` WRITE;
 /*!40000 ALTER TABLE `heart` DISABLE KEYS */;
+INSERT INTO `heart` VALUES (1,'test1',1,'2022-07-27 02:13:48');
 /*!40000 ALTER TABLE `heart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,10 +195,10 @@ DROP TABLE IF EXISTS `tag_theme`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tag_theme` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `codi` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `codi` varchar(45) NOT NULL,
+  `number` int DEFAULT NULL,
+  PRIMARY KEY (`codi`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +207,7 @@ CREATE TABLE `tag_theme` (
 
 LOCK TABLES `tag_theme` WRITE;
 /*!40000 ALTER TABLE `tag_theme` DISABLE KEYS */;
-INSERT INTO `tag_theme` VALUES (1,'데이트룩'),(2,'연습');
+INSERT INTO `tag_theme` VALUES ('데이트룩',1),('연습',2);
 /*!40000 ALTER TABLE `tag_theme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,14 +219,12 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `user_ID` varchar(45) NOT NULL,
   `user_Name` varchar(45) NOT NULL,
   `user_Password` varchar(45) NOT NULL,
-  `admin` tinyint NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_email_UNIQUE` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `record_Data` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +233,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test1','test1','test',0),(2,'test2','test2','test',1),(3,'test3','test3','test',0);
+INSERT INTO `user` VALUES ('cwal8202','최장호','a1234','2022-07-27 01:50:22'),('test1','test1','test','2022-07-27 01:50:22'),('test2','test2','test','2022-07-27 01:50:22'),('test3','test3','test','2022-07-27 01:50:22');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-26 14:07:56
+-- Dump completed on 2022-07-27 11:29:41
