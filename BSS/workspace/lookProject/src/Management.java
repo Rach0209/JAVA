@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -38,9 +37,9 @@ public class Management extends JFrame {
 	// 등록창과 수정창 생성자. 만일을 대비해 두 개를 따로 생성. 오류방지목적으로 동시 실행불가 처리해놓음.
 	ManagementOfRegist registWindow = new ManagementOfRegist();
 	ManagementOfEdit editWindow = new ManagementOfEdit();
-	List<JLabel> lblDataList = new ArrayList<>();
-	List<Integer> checkedList = new ArrayList<>();
-	List<Item> itemList = new ArrayList<>();
+//	List<JLabel> lblDataList = new ArrayList<>();
+	static List<Integer> checkedList = new ArrayList<>();
+	static List<Item> itemList = new ArrayList<>();
 
 	// 사진 사이즈 조절
 	public ImageIcon scaleImage(ImageIcon icon, int w, int h) {
@@ -110,7 +109,7 @@ public class Management extends JFrame {
 
 		// 관리자 데이터 확인용
 ////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		// 데이터 길이 만큼 레이블 생성 넣기
 //		JLabel[] lblData = new JLabel[여기에 데이터 length];
 		String query = "";
@@ -152,9 +151,10 @@ public class Management extends JFrame {
 				pnlData.add(lblImage[i]);
 				pnlData.add(lblDataLine[i]);
 				ckBox.setMargin(new Insets(7, 2, 7, 2));
-				lblDataList.add(lblDataLine[i]);
+
+//				lblDataList.add(lblDataLine[i]);
 /////////////////////////////////////////////////////////////////////////////////////////
-				
+
 				// 체크박스 전체 선택, 해제
 				btnAllCheck.addActionListener(new ActionListener() {
 					@Override
@@ -174,9 +174,11 @@ public class Management extends JFrame {
 				ckBox.addItemListener(new ItemListener() {
 					@Override
 					public void itemStateChanged(ItemEvent e) {
+						// selectNum은 0부터 시작이라 read할때, item의 number는 1부터라서 +1을 해준다.
 						int selectNum = index;
 						if (e.getStateChange() == ItemEvent.SELECTED) {
 							checkedList.add(selectNum);
+//							System.out.println(checkedList);
 						} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 							checkedList.remove(checkedList.indexOf(selectNum));
 						}
@@ -188,6 +190,7 @@ public class Management extends JFrame {
 						} else {
 							btEdit.setEnabled(true);
 						}
+//						System.out.println(checkedList);
 					}
 				});
 			}
@@ -237,10 +240,18 @@ public class Management extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editWindow.setVisible(true);
+				itemList.clear();
+				try {
+					itemList.add(dao.read(checkedList.get(0) + 1));
+					System.out.println(itemList);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				if (editWindow.isVisible()) {
 					btEdit.setEnabled(false);
 					btConfirm.setEnabled(false);
 				}
+
 			}
 		};
 		// ---------------------------------
@@ -267,7 +278,7 @@ public class Management extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 여기에 삭제 쿼리문
-				
+
 			}
 		};
 		btDelete.addActionListener(deleteAction);

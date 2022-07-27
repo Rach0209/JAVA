@@ -166,7 +166,7 @@ public class ManagementOfRegist extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblNewLabel_1);
 
-		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로");
+		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로(자동으로 설정됩니다.");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpImage);
 
@@ -241,7 +241,7 @@ public class ManagementOfRegist extends JFrame {
 				tfSubCategory.setText("");
 				tfImageUrl.setText("");
 				tfSeason.setText("");
-				lblImageDisplay.setIcon(null);;
+				lblImageDisplay.setIcon(null);
 			}
 		};
 		this.addWindowListener(resetAll);

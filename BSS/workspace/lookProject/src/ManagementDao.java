@@ -15,5 +15,5 @@ public interface ManagementDao {
 	List<Item> read() throws SQLException;
 
 	Item read(String name) throws SQLException;
-
+	Item read(int number) throws SQLException;
 }

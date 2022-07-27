@@ -21,6 +21,6 @@ public class ManagementTool {
 		Management m = new Management();
 		m.setVisible(true);
 		
-		registBtn(JButton )
+//		registBtn(JButton )
 	}
 }

@@ -11,6 +11,8 @@ import java.util.List;
 
 import kr.co.greenart.dbutil.DBUtil;
 
+
+
 // All_product 테이블  컬럼
 // product_Name, product_Size, product_Color, product_Category,
 // product_Sub_Category, product_Image, product_Season 
@@ -144,7 +146,7 @@ public class ManagementDaoImpl implements ManagementDao {
 
 	@Override
 	public List<Item> read() throws SQLException {
-		String query = "SELECT * FROM all_product";
+		String query = "SELECT * FROM all_product ORDER BY number";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -178,6 +180,33 @@ public class ManagementDaoImpl implements ManagementDao {
 		try {
 			conn = DBUtil.getConnection();
 			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return resultMapping(rs);
+			}
+		} finally {
+			DBUtil.closeRS(rs);
+			DBUtil.closeStmt(pstmt);
+			DBUtil.closeConn(conn);
+		}
+		return null;
+	}
+	
+	// 수정 패널에서 체크박스 번호랑 매치하는 객체를 불러오는 메소드
+	@Override
+	public Item read(int number) throws SQLException {
+		String query = "SELECT * FROM all_product WHERE number = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, number);
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {

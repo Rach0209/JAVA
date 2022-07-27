@@ -1,10 +1,21 @@
 import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class ManagementOfEdit extends JFrame {
 	private JTextField tfSize;
@@ -23,6 +33,8 @@ public class ManagementOfEdit extends JFrame {
 	private JTextField tfCategory;
 	private JTextField tfImage;
 	private JTextField tfSeason;
+	private ManagementDaoImpl dao = new ManagementDaoImpl();
+	private JTextField tfSubCategory;
 
 	ManagementOfEdit() {
 		super("관리자용 데이터 수정");
@@ -109,6 +121,15 @@ public class ManagementOfEdit extends JFrame {
 		pnlRegiEditArea.add(tfColor);
 		pnlRegiEditArea.add(lblCategory);
 		pnlRegiEditArea.add(tfCategory);
+
+		JLabel lblSubCategory = new JLabel("SubCategory");
+		lblSubCategory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubCategory.setFont(new Font("궁서체", Font.ITALIC, 24));
+		pnlRegiEditArea.add(lblSubCategory);
+
+		tfSubCategory = new JTextField();
+		pnlRegiEditArea.add(tfSubCategory);
+		tfSubCategory.setColumns(10);
 		pnlRegiEditArea.add(lblImage);
 		pnlRegiEditArea.add(tfImage);
 		pnlRegiEditArea.add(lblSeason);
@@ -121,7 +142,7 @@ public class ManagementOfEdit extends JFrame {
 		JPanel pnlHelp = new JPanel();
 		pnlHelp.setBounds(425, 60, 397, 286);
 		pnlMain.add(pnlHelp);
-		pnlHelp.setLayout(new GridLayout(7, 0, 0, 0));
+		pnlHelp.setLayout(new GridLayout(8, 0, 0, 0));
 
 		JLabel lblHelp = new JLabel("사용 설명서");
 		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -139,11 +160,15 @@ public class ManagementOfEdit extends JFrame {
 		lblHelpColor.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpColor);
 
-		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리");
+		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
 		lblHelpCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpCategory);
 
-		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로");
+		JLabel lblNewLabel_1 = new JLabel("SubCategory : 상품 상세 분류(셔츠, 반팔, 등등 입력)");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlHelp.add(lblNewLabel_1);
+
+		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로 (자동으로 설정 됩니다.)");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpImage);
 
@@ -156,7 +181,51 @@ public class ManagementOfEdit extends JFrame {
 
 //////////////////////////////////////////////////////////////////////////////////
 		// 처음 창이 열리면 기본 정보가 자동으로 입력되게 만들기. windowListener를 사용할 듯함.
-		
+		WindowListener makeInfoToggle = new WindowAdapter() {
+			@Override
+			public void windowActivated (WindowEvent e) {
+				// 선택한 객체 읽어오기.
+//				dao.read(name);
+				int number = Management.itemList.get(0).getId();
+				Item loadItem;
+				try {
+					Blob imgUrl = dao.read(number).getImageUrl();
+					InputStream in = imgUrl.getBinaryStream();
+					BufferedImage blobImage = ImageIO.read(in);
+					Image img = blobImage;
+					ImageIcon convertedImage = new ImageIcon(img);
+					loadItem = dao.read(number);
+					tfName.setText(loadItem.getName());
+					tfSize.setText(loadItem.getSize());
+					tfColor.setText(loadItem.getColor());
+					tfCategory.setText(loadItem.getCategory());
+					tfSubCategory.setText(loadItem.getSubCategory());
+					tfImage.setText("");
+					tfSeason.setText(loadItem.getSeason());
+					lblImageDisplay.setIcon(scaleImage(convertedImage));
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+//		};
+
+			// 화면을 닫을 때, 표시한것 모두 초기화
+			@Override
+			public void windowClosed(WindowEvent e) {
+				tfName.setText("");
+				tfSize.setText("");
+				tfColor.setText("");
+				tfCategory.setText("");
+				tfSubCategory.setText("");
+				tfImage.setText("");
+				tfSeason.setText("");
+				lblImageDisplay.setIcon(null);
+			}
+		};
+		this.addWindowListener(makeInfoToggle);
+
 		// 사진 수정하려면 불러와야됨.
 		JFileChooser chooser = new JFileChooser();
 
@@ -173,12 +242,12 @@ public class ManagementOfEdit extends JFrame {
 				}
 			}
 		});
-		
+
 		// Regist버튼 => 수정값으로 DB의 데이터 바꾸기.
 		btnRegist.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 	}

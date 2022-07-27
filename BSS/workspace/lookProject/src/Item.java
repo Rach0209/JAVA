@@ -2,7 +2,7 @@ import java.sql.Blob;
 
 // name, size, color, category, sub_category, image, season 값
 public class Item {
-	private int id;
+	private int number;
 	private String name;
 	private String size;
 	private String color;
@@ -13,7 +13,7 @@ public class Item {
 	public Item(int id, String name, String size, String color, String category, String subCategory, Blob imageUrl,
 			String season) {
 		super();
-		this.id = id;
+		this.number = id;
 		this.name = name;
 		this.size = size;
 		this.color = color;
@@ -23,10 +23,10 @@ public class Item {
 		this.season = season;
 	}
 	public int getId() {
-		return id;
+		return number;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.number = id;
 	}
 	public String getName() {
 		return name;
@@ -72,7 +72,7 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "상품번호: " + id + " 이름: " + name + ", 사이즈: " + size + ", 색상: " + color + ", 분류: " + subCategory + ", season: " + season;
+		return "상품번호: " + number + " 이름: " + name + ", 사이즈: " + size + ", 색상: " + color + ", 분류: " + subCategory + ", season: " + season;
 	}
 	
 	
