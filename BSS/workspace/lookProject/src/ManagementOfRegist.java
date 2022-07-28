@@ -33,6 +33,7 @@ public class ManagementOfRegist extends JFrame {
 	private JTextField tfImageUrl;
 	private JTextField tfSeason;
 	private ManagementDaoImpl dao = new ManagementDaoImpl();
+	protected JButton btnRegist;
 
 	ManagementOfRegist() {
 		super("관리자용 데이터 등록");
@@ -98,7 +99,7 @@ public class ManagementOfRegist extends JFrame {
 		lblSeason.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeason.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		JButton btnRegist = new JButton("Regist");
+		btnRegist = new JButton("Regist");
 		btnRegist.setFont(new Font("궁서체", Font.ITALIC, 20));
 		pnlRegiEditArea.setLayout(new GridLayout(0, 2, 0, 3));
 		pnlRegiEditArea.add(lblName);

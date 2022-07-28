@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,13 +8,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,18 +24,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-public class ManagementOfEdit extends JFrame {
-	private JTextField tfSize;
-	private JTextField tfName;
-	private JTextField tfColor;
-	private JTextField tfCategory;
-	private JTextField tfImage;
-	private JTextField tfSeason;
-	private ManagementDaoImpl dao = new ManagementDaoImpl();
-	private JTextField tfSubCategory;
+public class ManagementOfRegist2 extends JFrame {
+	protected JTextField tfName;
+	protected JTextField tfSize;
+	protected JTextField tfColor;
+	protected JTextField tfCategory;
+	protected JTextField tfSubCategory;
+	protected JTextField tfImageUrl;
+	protected JTextField tfSeason;
+	protected ManagementDaoImpl dao = new ManagementDaoImpl();
+	protected JButton btnRegist;
 
-	ManagementOfEdit() {
-		super("관리자용 데이터 수정");
+	ManagementOfRegist2() {
+		super("관리자용 데이터 등록");
 		JPanel pnlMain = new JPanel();
 
 		getContentPane().add(pnlMain);
@@ -68,7 +67,7 @@ public class ManagementOfEdit extends JFrame {
 
 		JLabel lblImageDisplay = new JLabel("");
 		lblImageDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		pnlImage.add(lblImageDisplay, BorderLayout.NORTH);
+		pnlImage.add(lblImageDisplay);
 
 		JPanel pnlRegiEditArea = new JPanel();
 		pnlRegiEditArea.setBounds(425, 356, 397, 271);
@@ -77,12 +76,6 @@ public class ManagementOfEdit extends JFrame {
 		JLabel lblName = new JLabel("Name");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("궁서체", Font.ITALIC, 24));
-
-		tfName = new JTextField();
-
-		JLabel lblSize = new JLabel("Size");
-		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSize.setFont(new Font("궁서체", Font.ITALIC, 24));
 
 		tfSize = new JTextField();
 
@@ -102,19 +95,21 @@ public class ManagementOfEdit extends JFrame {
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		tfImage = new JTextField();
-
 		JLabel lblSeason = new JLabel("Season");
 		lblSeason.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeason.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		tfSeason = new JTextField();
-
-		JButton btnRegist = new JButton("Regist");
+		btnRegist = new JButton("Regist");
 		btnRegist.setFont(new Font("궁서체", Font.ITALIC, 20));
 		pnlRegiEditArea.setLayout(new GridLayout(0, 2, 0, 3));
 		pnlRegiEditArea.add(lblName);
+
+		tfName = new JTextField();
 		pnlRegiEditArea.add(tfName);
+
+		JLabel lblSize = new JLabel("Size");
+		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSize.setFont(new Font("궁서체", Font.ITALIC, 24));
 		pnlRegiEditArea.add(lblSize);
 		pnlRegiEditArea.add(tfSize);
 		pnlRegiEditArea.add(lblColor);
@@ -122,21 +117,25 @@ public class ManagementOfEdit extends JFrame {
 		pnlRegiEditArea.add(lblCategory);
 		pnlRegiEditArea.add(tfCategory);
 
-		JLabel lblSubCategory = new JLabel("SubCategory");
-		lblSubCategory.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSubCategory.setFont(new Font("궁서체", Font.ITALIC, 24));
-		pnlRegiEditArea.add(lblSubCategory);
+		JLabel lblNewLabel = new JLabel("SubCategory");
+		lblNewLabel.setFont(new Font("궁서체", Font.ITALIC, 24));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pnlRegiEditArea.add(lblNewLabel);
 
 		tfSubCategory = new JTextField();
 		pnlRegiEditArea.add(tfSubCategory);
-		tfSubCategory.setColumns(10);
 		pnlRegiEditArea.add(lblImage);
-		pnlRegiEditArea.add(tfImage);
+
+		tfImageUrl = new JTextField();
+		pnlRegiEditArea.add(tfImageUrl);
 		pnlRegiEditArea.add(lblSeason);
+
+		tfSeason = new JTextField();
 		pnlRegiEditArea.add(tfSeason);
+		tfSeason.setColumns(10);
 		// 공백 라벨
-		JLabel lblBlank = new JLabel("");
-		pnlRegiEditArea.add(lblBlank);
+		JLabel lblblock = new JLabel("");
+		pnlRegiEditArea.add(lblblock);
 		pnlRegiEditArea.add(btnRegist);
 
 		JPanel pnlHelp = new JPanel();
@@ -168,7 +167,7 @@ public class ManagementOfEdit extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblNewLabel_1);
 
-		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로 (자동으로 설정 됩니다.)");
+		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로(자동으로 설정됩니다.");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpImage);
 
@@ -179,54 +178,10 @@ public class ManagementOfEdit extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-//////////////////////////////////////////////////////////////////////////////////
-		// 처음 창이 열리면 기본 정보가 자동으로 입력되게 만들기. windowListener를 사용할 듯함.
-		WindowListener makeInfoToggle = new WindowAdapter() {
-			@Override
-			public void windowActivated(WindowEvent e) {
-				// 선택한 객체 읽어오기.
-//				dao.read(name);
-				int number = Management.itemList.get(0).getId();
-				Item loadItem;
-				try {
-					Blob imgUrl = dao.read(number).getImageUrl();
-					InputStream in = imgUrl.getBinaryStream();
-					BufferedImage blobImage = ImageIO.read(in);
-					Image img = blobImage;
-					ImageIcon convertedImage = new ImageIcon(img);
-					loadItem = dao.read(number);
-					tfName.setText(loadItem.getName());
-					tfSize.setText(loadItem.getSize());
-					tfColor.setText(loadItem.getColor());
-					tfCategory.setText(loadItem.getCategory());
-					tfSubCategory.setText(loadItem.getSubCategory());
-					tfImage.setText("");
-					tfSeason.setText(loadItem.getSeason());
-					lblImageDisplay.setIcon(scaleImage(convertedImage));
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-//		};
-
-			// 화면을 닫을 때, 표시한것 모두 초기화
-			@Override
-			public void windowClosed(WindowEvent e) {
-				tfName.setText("");
-				tfSize.setText("");
-				tfColor.setText("");
-				tfCategory.setText("");
-				tfSubCategory.setText("");
-				tfImage.setText("");
-				tfSeason.setText("");
-				lblImageDisplay.setIcon(null);
-			}
-		};
-		this.addWindowListener(makeInfoToggle);
-
-		// 사진 수정하려면 불러와야됨.
+		//////////////////////////// 프레임 끝 ///////////////////////////////////
+		// -----------------------------------------------------------------//
+		// 등록창
+		// 사진 불러오기 버튼 -------- 파일불러오는 파일선택창
 		JFileChooser chooser = new JFileChooser();
 
 		btLoad.addActionListener(new ActionListener() {
@@ -238,22 +193,72 @@ public class ManagementOfEdit extends JFrame {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					ImageIcon image = new ImageIcon(path);
 					lblImageDisplay.setIcon(scaleImage(image));
-					tfImage.setText(path);
+					tfImageUrl.setText(path);
 				}
 			}
 		});
 
-		// Regist버튼 => 수정값으로 DB의 데이터 바꾸기.
-		btnRegist.addActionListener(new ActionListener() {
+//		// 등록 메소드 만들기
+//		btnRegist.addActionListener(new ActionListener() {
+//			String name;
+//			String size;
+//			String color;
+//			String category;
+//			String subCategory;
+//			String imageUrl;
+//			File file;
+//			String season;
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					name = tfName.getText();
+//					size = tfSize.getText();
+//					color = tfColor.getText();
+//					if (Integer.valueOf(tfCategory.getText()) == 1) {
+//						category = "top";
+//					} else if (Integer.valueOf(tfCategory.getText()) == 2) {
+//						category = "bottom";
+//					} else if (Integer.valueOf(tfCategory.getText()) == 3) {
+//						category = "bag";
+//					} else if (Integer.valueOf(tfCategory.getText()) == 4) {
+//						category = "shoes";
+//					} else if (Integer.valueOf(tfCategory.getText()) == 5) {
+//						category = "acc";
+//					} else {
+//						category = "임시분류";
+//					}
+//					subCategory = tfSubCategory.getText();
+//					imageUrl = tfImageUrl.getText();
+//					season = tfSeason.getText();
+//					file = new File(imageUrl);
+//					dao.create(name, size, color, category, subCategory, imageUrl, file, season);
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+
+		// 화면을 껏다키면 아까 썼던 글이나 사진을 원상태로 돌리기.
+		WindowListener resetAll = new WindowAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void windowClosed(WindowEvent e) {
+				tfName.setText("");
+				tfSize.setText("");
+				tfColor.setText("");
+				tfCategory.setText("");
+				tfSubCategory.setText("");
+				tfImageUrl.setText("");
+				tfSeason.setText("");
+				lblImageDisplay.setIcon(null);
 			}
-		});
+		};
+		this.addWindowListener(resetAll);
 	}
 
 	// 사진 사이즈 조절
 	public ImageIcon scaleImage(ImageIcon icon) {
+
 		return new ImageIcon(
 				icon.getImage().getScaledInstance((int) (401 / 1.2), (int) (567 / 1.2), Image.SCALE_DEFAULT));
 	}

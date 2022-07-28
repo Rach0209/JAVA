@@ -126,8 +126,26 @@ public class ManagementDaoImpl implements ManagementDao {
 	}
 
 	@Override
+	public int delete(int number) throws SQLException {
+		String query = "DELETE FROM all_product WHERE number = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, number);
+			
+			return pstmt.executeUpdate();
+		} finally {
+			DBUtil.closeStmt(pstmt);
+			DBUtil.closeConn(conn);
+		}
+	}
+	@Override
 	public int delete(String name) throws SQLException {
-		String query = "DELETE FROM all_product WEHRE product_Name = ?";
+		String query = "DELETE FROM all_product WHERE product_Name = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

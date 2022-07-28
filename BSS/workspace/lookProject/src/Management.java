@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -35,11 +36,12 @@ public class Management extends JFrame {
 	private ManagementDaoImpl dao = new ManagementDaoImpl();
 
 	// 등록창과 수정창 생성자. 만일을 대비해 두 개를 따로 생성. 오류방지목적으로 동시 실행불가 처리해놓음.
-	ManagementOfRegist registWindow = new ManagementOfRegist();
+	ManagementOfRegist2 registWindow = new ManagementOfRegist2();
 	ManagementOfEdit editWindow = new ManagementOfEdit();
 //	List<JLabel> lblDataList = new ArrayList<>();
 	static List<Integer> checkedList = new ArrayList<>();
 	static List<Item> itemList = new ArrayList<>();
+	static List<Integer> intList = new ArrayList<>();
 
 	// 사진 사이즈 조절
 	public ImageIcon scaleImage(ImageIcon icon, int w, int h) {
@@ -114,9 +116,12 @@ public class Management extends JFrame {
 //		JLabel[] lblData = new JLabel[여기에 데이터 length];
 		String query = "";
 		Blob imgUrl = null;
+		JLabel[] lblDataLine;
 		try {
 			for (int i = 0; i < dao.read().size(); i++) {
 				query = dao.read().get(i).toString();
+				intList.add(dao.read().get(i).getId());
+				System.out.println(intList);
 				// 7/27 DB 컬럼변경
 				// ImageUrl이 String으로된 절대경로값에서 Blob형식으로 변경되었다.
 				// Item객체 생성자 및 DAO 에서 ImageUrl 값을 Blob으로 모두 변경
@@ -132,7 +137,6 @@ public class Management extends JFrame {
 				ImageIcon convertedImage = new ImageIcon(img);
 				// -----------------------------------------------
 
-				JLabel[] lblDataLine;
 //				Toolkit kit = Toolkit.getDefaultToolkit();
 				// url 안쓰고, 쿼리문 긁어와서 kit.getImage('''여기에 쿼리문''');
 //				URL url1 = this.getClass().getClassLoader().getResource("가방/가방1.png");
@@ -178,7 +182,8 @@ public class Management extends JFrame {
 						int selectNum = index;
 						if (e.getStateChange() == ItemEvent.SELECTED) {
 							checkedList.add(selectNum);
-//							System.out.println(checkedList);
+							System.out.println("전체 체크 박스인덱스 " + checkedList);
+							System.out.println("처음 체크한 번호 [" + (checkedList.get(0) + 1) + "]");
 						} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 							checkedList.remove(checkedList.indexOf(selectNum));
 						}
@@ -223,10 +228,10 @@ public class Management extends JFrame {
 		////////////////////////// 창 열고 닫을 때, 버튼 활성<->비활성 체크
 		////////////////////////////////////////////////////////
 
-		// 등록, 수정 버튼 클릭시, 등록 수정 창 띄우기
+		// 등록버튼 : 등록 창 띄우기
 		ActionListener regiAction = new ActionListener() {
 
-			@Override
+	@Override
 			public void actionPerformed(ActionEvent e) {
 				registWindow.setVisible(true);
 				if (registWindow.isVisible()) {
@@ -235,14 +240,59 @@ public class Management extends JFrame {
 				}
 			}
 		};
+		
+		registWindow.btnRegist.addActionListener(new ActionListener() {
+			String name;
+			String size;
+			String color;
+			String category;
+			String subCategory;
+			String imageUrl;
+			File file;
+			String season;
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					name = registWindow.tfName.getText();
+					size = registWindow.tfSize.getText();
+					color = registWindow.tfColor.getText();
+					if (Integer.valueOf(registWindow.tfCategory.getText()) == 1) {
+						category = "top";
+					} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 2) {
+						category = "bottom";
+					} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 3) {
+						category = "bag";
+					} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 4) {
+						category = "shoes";
+					} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 5) {
+						category = "acc";
+					} else {
+						category = "임시분류";
+					}
+					subCategory = registWindow.tfSubCategory.getText();
+					imageUrl = registWindow.tfImageUrl.getText();
+					season = registWindow.tfSeason.getText();
+					file = new File(imageUrl);
+					dao.create(name, size, color, category, subCategory, imageUrl, file, season);
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		// 수정버튼 : 수정 창 띄우기, 기본 정보 입력해주기위한 아이템리스트에 체크한것 담기
 		ActionListener editAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editWindow.setVisible(true);
 				itemList.clear();
 				try {
-					itemList.add(dao.read(checkedList.get(0) + 1));
+					// itemList에 체크박스 선택한 객체 담기.
+					System.out.println(dao.read(intList.get(checkedList.get(0))).toString());
+
+					itemList.add(dao.read(intList.get(checkedList.get(0))));
 					System.out.println(itemList);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -278,7 +328,7 @@ public class Management extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 여기에 삭제 쿼리문
-
+//					dao.delete();
 			}
 		};
 		btDelete.addActionListener(deleteAction);
@@ -288,4 +338,8 @@ public class Management extends JFrame {
 
 	}
 
+	public static void main(String[] args) {
+		Management m = new Management();
+		m.setVisible(true);
+	}
 }
