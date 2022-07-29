@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
@@ -36,23 +38,23 @@ public class Management extends JFrame {
 	private ManagementDaoImpl dao = new ManagementDaoImpl();
 
 	// 등록창과 수정창 생성자. 만일을 대비해 두 개를 따로 생성. 오류방지목적으로 동시 실행불가 처리해놓음.
-	ManagementOfRegist2 registWindow = new ManagementOfRegist2();
+	ManagementOfRegist registWindow = new ManagementOfRegist();
 	ManagementOfEdit editWindow = new ManagementOfEdit();
 //	List<JLabel> lblDataList = new ArrayList<>();
 	static List<Integer> checkedList = new ArrayList<>();
 	static List<Item> itemList = new ArrayList<>();
 	static List<Integer> intList = new ArrayList<>();
-
+	List<JCheckBox> checkBoxList = new ArrayList<>();
 	// 세개 모두 한패널에 생성, 등록된 상품을 나타내는 라벨
 	// 체크박스
-	private JCheckBox ckBox;
+//	private JCheckBox ckBox;
 	// 이미지 들어가는 라벨
 	private JLabel[] lblImages;
 	// 상품 정보를 담는 라벨
 	private JLabel[] lblDataLines;
 	// ----------------------------------------
 
-	private int i;
+	private int count;
 
 	// 사진 사이즈 조절
 	public ImageIcon scaleImage(ImageIcon icon, int w, int h) {
@@ -127,11 +129,13 @@ public class Management extends JFrame {
 //		JLabel[] lblData = new JLabel[여기에 데이터 length];
 		String query = "";
 		Blob imgUrl = null;
+		ImageIcon convertedImage;
 		try {
-			for (i = 0; i < dao.read().size(); i++) {
-				query = dao.read().get(i).toString();
-				intList.add(dao.read().get(i).getId());
-				System.out.println(intList);
+			intList.clear();
+			for (count = 0; count < dao.read().size(); count++) {
+				query = dao.read().get(count).toString();
+				intList.add(dao.read().get(count).getId());
+//				System.out.println("인트리스트사진가져올때씀" + intList);
 				// 7/27 DB 컬럼변경
 				// ImageUrl이 String으로된 절대경로값에서 Blob형식으로 변경되었다.
 				// Item객체 생성자 및 DAO 에서 ImageUrl 값을 Blob으로 모두 변경
@@ -140,11 +144,15 @@ public class Management extends JFrame {
 				// JLabel 등에서 불러와서 미리보기로 사용한다.
 				// DB가 느려질 수 있으나, 서버를 배우지 않은 상태에서 그나마 서버효과를 낼 수 있을 듯.
 				// Blob형태의 이미지를 JLabel에 나타내기 위해 변환하는 과정 -------
-				imgUrl = dao.read().get(i).getImageUrl();
-				InputStream in = imgUrl.getBinaryStream();
-				BufferedImage blobImage = ImageIO.read(in);
-				Image img = blobImage;
-				ImageIcon convertedImage = new ImageIcon(img);
+				if (dao.read().get(count).getImageUrl() != null) {
+					imgUrl = dao.read().get(count).getImageUrl();
+					InputStream in = imgUrl.getBinaryStream();
+					BufferedImage blobImage = ImageIO.read(in);
+					Image img = blobImage;
+					convertedImage = new ImageIcon(img);
+				} else {
+					convertedImage = new ImageIcon();
+				}
 				// -----------------------------------------------
 
 //				Toolkit kit = Toolkit.getDefaultToolkit();
@@ -155,15 +163,16 @@ public class Management extends JFrame {
 				// 이건 되는데 resource꺼는 왜안됨? => Toolkit으로 해결.
 //				ImageIcon imageIcon = new ImageIcon("D:\\BSS\\스쉐프젝\\룩\\룩3\\가방3.jpg");
 
-				ckBox = new JCheckBox();
+				JCheckBox ckBox = new JCheckBox();
 				lblImages = new JLabel[dao.read().size()];
-				lblImages[i] = new JLabel(scaleImage(convertedImage, 100, 100));
+				lblImages[count] = new JLabel(scaleImage(convertedImage, 100, 100));
 				lblDataLines = new JLabel[dao.read().size()];
-				lblDataLines[i] = new JLabel(query);
+				lblDataLines[count] = new JLabel(query);
 				pnlData.add(ckBox);
-				pnlData.add(lblImages[i]);
-				pnlData.add(lblDataLines[i]);
+				pnlData.add(lblImages[count]);
+				pnlData.add(lblDataLines[count]);
 				ckBox.setMargin(new Insets(7, 2, 7, 2));
+				checkBoxList.add(ckBox);
 
 //				lblDataList.add(lblDataLine[i]);
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -183,7 +192,7 @@ public class Management extends JFrame {
 				});
 
 				// 수정 버튼은 체크박스가 여러개 체크되있을 경우, 비활성화 시킨다.
-				int index = i;
+				int index = count;
 				ckBox.addItemListener(new ItemListener() {
 					@Override
 					public void itemStateChanged(ItemEvent e) {
@@ -191,8 +200,8 @@ public class Management extends JFrame {
 						int selectNum = index;
 						if (e.getStateChange() == ItemEvent.SELECTED) {
 							checkedList.add(selectNum);
-							System.out.println("전체 체크 박스인덱스 " + checkedList);
-							System.out.println("처음 체크한 번호 [" + (checkedList.get(0) + 1) + "]");
+//							System.out.println("전체 체크 박스인덱스 " + checkedList);
+//							System.out.println("체크한 번호 " + checkedList + "+ 1 = (상품번호)");
 						} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 							checkedList.remove(checkedList.indexOf(selectNum));
 						}
@@ -208,6 +217,31 @@ public class Management extends JFrame {
 					}
 				});
 
+				// 창을 닫을 때, 다시 버튼이 활성화 된다.
+				WindowListener toggleBtn = new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ckBox.setSelected(false);
+						btConfirm.setEnabled(true);
+						// 하나라도 선택 되어있으면 수정버튼 활성, 아니면 비활성
+						if (checkedList.size() == 1) {
+							btEdit.setEnabled(true);
+						}
+					}
+				};
+				registWindow.addWindowListener(toggleBtn);
+				editWindow.addWindowListener(toggleBtn);
+
+				// 삭제 버튼 수정필수 *************************************
+				ActionListener deleteCheck = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// 여기에 삭제 쿼리문
+						ckBox.setSelected(false);
+					}
+				};
+				btDelete.addActionListener(deleteCheck);
+
 			}
 			registWindow.btnRegist.addActionListener(new ActionListener() {
 				String name;
@@ -222,59 +256,128 @@ public class Management extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						name = registWindow.tfName.getText();
-						size = registWindow.tfSize.getText();
-						color = registWindow.tfColor.getText();
-						if (Integer.valueOf(registWindow.tfCategory.getText()) == 1) {
-							category = "top";
-						} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 2) {
-							category = "bottom";
-						} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 3) {
-							category = "bag";
-						} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 4) {
-							category = "shoes";
-						} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 5) {
-							category = "acc";
+						if (!registWindow.tfName.getText().isEmpty() && !registWindow.tfImageUrl.getText().isEmpty()) {
+							name = registWindow.tfName.getText();
+							if (name.equals("")) {
+								name = "미지정";
+							}
+							size = registWindow.tfSize.getText();
+							if (size.equals("")) {
+								size = "미지정";
+							}
+							color = registWindow.tfColor.getText();
+							if (color.equals("")) {
+								color = "미지정";
+							}
+							if (!registWindow.tfCategory.getText().isEmpty()) {
+								if (Integer.valueOf(registWindow.tfCategory.getText()) == 1) {
+									category = "top";
+								} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 2) {
+									category = "bottom";
+								} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 3) {
+									category = "bag";
+								} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 4) {
+									category = "shoes";
+								} else if (Integer.valueOf(registWindow.tfCategory.getText()) == 5) {
+									category = "acc";
+								} else {
+									category = "임의분류";
+								}
+							}
+							subCategory = registWindow.tfSubCategory.getText();
+							if (subCategory.equals("")) {
+								subCategory = "미지정";
+							}
+							imageUrl = registWindow.tfImageUrl.getText();
+							if (imageUrl.equals("")) {
+								imageUrl = "미지정";
+							}
+							season = registWindow.tfSeason.getText();
+							if (season.equals("")) {
+								season = "미지정";
+							}
+							file = new File(imageUrl);
+//						System.out.println("auto_increment 값" + dao.findIncrement());
+							dao.alterIncrement(dao.findIncrement() + 1);
+							dao.create(name, size, color, category, subCategory, imageUrl, file, season);
+							// 체크박스 선택할때 숫자
+							count++;
+							registWindow.dispose();
+							// 창 새로고치기
+							Management.this.dispose();
+							new Management().setVisible(true);
 						} else {
-							category = "임시분류";
+							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
 						}
-						subCategory = registWindow.tfSubCategory.getText();
-						imageUrl = registWindow.tfImageUrl.getText();
-						season = registWindow.tfSeason.getText();
-						file = new File(imageUrl);
-						dao.create(name, size, color, category, subCategory, imageUrl, file, season);
-						
-						// 체크박스 선택할때 숫자
-						i++;
-						// 등록 후 관리자 메인 패널에 추가시키기.
-//						int number = dao.read(name).getId();
-						ckBox.removeAll();
-						for (int j = 0; j < dao.read().size(); j++) {
-							lblImages[j].remove(0);
-							lblDataLines[j].remove(0);
-							Blob addImgUrl = dao.read().get(j).getImageUrl();
-							InputStream in = addImgUrl.getBinaryStream();
-							BufferedImage blobImage = ImageIO.read(in);
-							Image img = blobImage;
-							ImageIcon convertedImage = new ImageIcon(img);
-							String query = "";
-							query = dao.read().get(j).toString();
-							ckBox = new JCheckBox();
-							lblImages = new JLabel[dao.read().size()];
-							lblImages[j] = new JLabel(scaleImage(convertedImage, 100, 100));
-							lblDataLines = new JLabel[dao.read().size()];
-							lblDataLines[j] = new JLabel(query);
-							pnlData.add(ckBox);
-							pnlData.add(lblImages[j]);
-							pnlData.add(lblDataLines[j]);
-						}
+
 					} catch (SQLException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 				}
 			});
+
+			editWindow.btnRegist.addActionListener(new ActionListener() {
+				int number;
+				String name;
+				String size;
+				String color;
+				String category;
+				String subCategory;
+				String season;
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						if (!editWindow.tfName.getText().isEmpty() && !editWindow.lbltfImage.getText().isEmpty()) {
+							number = dao.read(itemList.get(0).getId()).getId();
+							name = editWindow.tfName.getText();
+							if (name.equals("")) {
+								name = "미지정";
+							}
+							size = editWindow.tfSize.getText();
+							if (size.equals("")) {
+								size = "미지정";
+							}
+							color = editWindow.tfColor.getText();
+							if (color.equals("")) {
+								color = "미지정";
+							}
+							if (!editWindow.tfCategory.getText().isEmpty()) {
+								if (Integer.valueOf(editWindow.tfCategory.getText()) == 1) {
+									category = "top";
+								} else if (Integer.valueOf(editWindow.tfCategory.getText()) == 2) {
+									category = "bottom";
+								} else if (Integer.valueOf(editWindow.tfCategory.getText()) == 3) {
+									category = "bag";
+								} else if (Integer.valueOf(editWindow.tfCategory.getText()) == 4) {
+									category = "shoes";
+								} else if (Integer.valueOf(editWindow.tfCategory.getText()) == 5) {
+									category = "acc";
+								} else {
+									category = "임의분류";
+								}
+							}
+							subCategory = editWindow.tfSubCategory.getText();
+							if (subCategory.equals("")) {
+								subCategory = "미지정";
+							}
+							season = editWindow.tfSeason.getText();
+							if (season.equals("")) {
+								season = "미지정";
+							}
+							dao.update(number, name, size, color, category, subCategory, season);
+							editWindow.dispose();
+							Management.this.dispose();
+							new Management().setVisible(true);
+						} else {
+							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+
 			// -------------------------------------
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -325,10 +428,11 @@ public class Management extends JFrame {
 				itemList.clear();
 				try {
 					// itemList에 체크박스 선택한 객체 담기.
-					System.out.println(dao.read(intList.get(checkedList.get(0))).toString());
+//					System.out.println(
+//							"itemList에 체크박스 선택한 객체 담기." + dao.read(intList.get(checkedList.get(0))).toString());
 
 					itemList.add(dao.read(intList.get(checkedList.get(0))));
-					System.out.println(itemList);
+//					System.out.println("아이템리스트 전체보기 " + itemList);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -340,37 +444,33 @@ public class Management extends JFrame {
 			}
 		};
 		// ---------------------------------
-		// 창을 닫을 때, 다시 버튼이 활성화 된다.
-		WindowListener toggleBtn = new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				btConfirm.setEnabled(true);
-				// 하나라도 선택 되어있으면 수정버튼 활성, 아니면 비활성
-				if (checkedList.size() == 1) {
-					btEdit.setEnabled(true);
-				}
-			}
-		};
-		// 등록창과 수정창은 각각 따로 생성했다.
+
 		btConfirm.addActionListener(regiAction);
 		btEdit.addActionListener(editAction);
-		registWindow.addWindowListener(toggleBtn);
-		editWindow.addWindowListener(toggleBtn);
 		//////////////////////////////////
 
 		// 삭제 버튼 수정필수 *************************************
 		ActionListener deleteAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 여기에 삭제 쿼리문
-//					dao.delete();
+				try {
+					for (int j = 0; j < checkedList.size(); j++) {
+//						System.out.println("상품번호 : " + (checkedList.get(j) + 1) + "의 데이터를 지움");
+						dao.delete(checkedList.get(j) + 1);
+					}
+					Management.this.dispose();
+					new Management().setVisible(true);
+				} catch (SQLIntegrityConstraintViolationException e2) {
+					JOptionPane.showMessageDialog(Management.this, "다른 곳에서 사용중인 옷입니다. 참조를 없애고 다시 시도해주세요.");
+//					System.out.println("참조 중인 아이템");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		};
 		btDelete.addActionListener(deleteAction);
 		// ------------------------------------------------
-
 		scrollPnl.getVerticalScrollBar().setUnitIncrement(20);
-
 	}
 
 	public static void main(String[] args) {

@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -7,8 +6,8 @@ public interface ManagementDao {
 	int create(String name, String size, String color, String category, String subCategory, String imageUrl,
 			File imageBlob, String season) throws SQLException;
 
-	int update(int number, String name, String size, String color, String category, String subCategory, String imageUrl,
-			File imageBlob, String season) throws SQLException;
+	int update(int number, String name, String size, String color, String category, String subCategory, String season) throws SQLException;
+	int updateImage(int number, File imageBlob) throws SQLException;
 
 	int delete(int number) throws SQLException;
 
@@ -19,4 +18,7 @@ public interface ManagementDao {
 	Item read(String name) throws SQLException;
 
 	Item read(int number) throws SQLException;
+	int findIncrement() throws SQLException;
+	int alterIncrement(int number) throws SQLException;
+	
 }

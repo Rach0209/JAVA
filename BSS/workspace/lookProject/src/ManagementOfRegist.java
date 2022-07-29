@@ -25,14 +25,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class ManagementOfRegist extends JFrame {
-	private JTextField tfName;
-	private JTextField tfSize;
-	private JTextField tfColor;
-	private JTextField tfCategory;
-	private JTextField tfSubCategory;
-	private JTextField tfImageUrl;
-	private JTextField tfSeason;
-	private ManagementDaoImpl dao = new ManagementDaoImpl();
+	protected JTextField tfName;
+	protected JTextField tfSize;
+	protected JTextField tfColor;
+	protected JTextField tfCategory;
+	protected JTextField tfSubCategory;
+	protected JTextField tfImageUrl;
+	protected JTextField tfSeason;
+	protected ManagementDaoImpl dao = new ManagementDaoImpl();
 	protected JButton btnRegist;
 
 	ManagementOfRegist() {
@@ -73,7 +73,7 @@ public class ManagementOfRegist extends JFrame {
 		pnlRegiEditArea.setBounds(425, 356, 397, 271);
 		pnlMain.add(pnlRegiEditArea);
 
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("★Name");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("궁서체", Font.ITALIC, 24));
 
@@ -91,7 +91,7 @@ public class ManagementOfRegist extends JFrame {
 
 		tfCategory = new JTextField();
 
-		JLabel lblImage = new JLabel("Image");
+		JLabel lblImage = new JLabel("★Image");
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
@@ -143,11 +143,11 @@ public class ManagementOfRegist extends JFrame {
 		pnlMain.add(pnlHelp);
 		pnlHelp.setLayout(new GridLayout(8, 0, 0, 0));
 
-		JLabel lblHelp = new JLabel("사용 설명서");
+		JLabel lblHelp = new JLabel("사용 설명서 - '★'는 필수 입력 ");
 		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelp);
 
-		JLabel lblHelpName = new JLabel("Name : 상품명");
+		JLabel lblHelpName = new JLabel("★ Name : 상품명");
 		lblHelpName.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpName);
 
@@ -159,7 +159,7 @@ public class ManagementOfRegist extends JFrame {
 		lblHelpColor.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpColor);
 
-		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
+		JLabel lblHelpCategory = new JLabel("Category : 분류 숫자만 입력(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
 		lblHelpCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpCategory);
 
@@ -167,7 +167,7 @@ public class ManagementOfRegist extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblNewLabel_1);
 
-		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로(자동으로 설정됩니다.");
+		JLabel lblHelpImage = new JLabel("★ Image : 상품 이미지경로(자동으로 설정됩니다.)");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpImage);
 
@@ -198,39 +198,6 @@ public class ManagementOfRegist extends JFrame {
 			}
 		});
 
-		// 등록 메소드 만들기
-		btnRegist.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String name = tfName.getText();
-					String size = tfSize.getText();
-					String color = tfColor.getText();
-					String category; // 카테고리 숫자입력으로 편하게 구현;
-					if (Integer.valueOf(tfCategory.getText()) == 1) {
-						category = "top";
-					} else if (Integer.valueOf(tfCategory.getText()) == 2) {
-						category = "bottom";
-					} else if (Integer.valueOf(tfCategory.getText()) == 3) {
-						category = "bag";
-					} else if (Integer.valueOf(tfCategory.getText()) == 4) {
-						category = "shoes";
-					} else if (Integer.valueOf(tfCategory.getText()) == 5) {
-						category = "acc";
-					} else {
-						category = "임시분류";
-					}
-					String subCategory = tfSubCategory.getText();
-					String imageUrl = tfImageUrl.getText();
-					String season = tfSeason.getText();
-					File file = new File(imageUrl);
-					dao.create(name, size, color, category, subCategory, imageUrl, file, season);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		
 		// 화면을 껏다키면 아까 썼던 글이나 사진을 원상태로 돌리기.
 		WindowListener resetAll = new WindowAdapter() {
 			@Override

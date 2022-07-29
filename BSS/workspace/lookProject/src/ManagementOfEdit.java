@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -27,14 +27,16 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class ManagementOfEdit extends JFrame {
-	private JTextField tfSize;
-	private JTextField tfName;
-	private JTextField tfColor;
-	private JTextField tfCategory;
-	private JTextField tfImage;
-	private JTextField tfSeason;
+	protected JTextField tfSize;
+	protected JTextField tfName;
+	protected JTextField tfColor;
+	protected JTextField tfCategory;
+	protected JLabel lbltfImage;
+	protected JTextField tfSeason;
 	private ManagementDaoImpl dao = new ManagementDaoImpl();
-	private JTextField tfSubCategory;
+	protected JTextField tfSubCategory;
+	protected JButton btnRegist;
+	protected String path;
 
 	ManagementOfEdit() {
 		super("관리자용 데이터 수정");
@@ -102,7 +104,7 @@ public class ManagementOfEdit extends JFrame {
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
-		tfImage = new JTextField();
+		lbltfImage = new JLabel();
 
 		JLabel lblSeason = new JLabel("Season");
 		lblSeason.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,7 +112,7 @@ public class ManagementOfEdit extends JFrame {
 
 		tfSeason = new JTextField();
 
-		JButton btnRegist = new JButton("Regist");
+		btnRegist = new JButton("Regist");
 		btnRegist.setFont(new Font("궁서체", Font.ITALIC, 20));
 		pnlRegiEditArea.setLayout(new GridLayout(0, 2, 0, 3));
 		pnlRegiEditArea.add(lblName);
@@ -131,7 +133,7 @@ public class ManagementOfEdit extends JFrame {
 		pnlRegiEditArea.add(tfSubCategory);
 		tfSubCategory.setColumns(10);
 		pnlRegiEditArea.add(lblImage);
-		pnlRegiEditArea.add(tfImage);
+		pnlRegiEditArea.add(lbltfImage);
 		pnlRegiEditArea.add(lblSeason);
 		pnlRegiEditArea.add(tfSeason);
 		// 공백 라벨
@@ -148,7 +150,7 @@ public class ManagementOfEdit extends JFrame {
 		lblHelp.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelp);
 
-		JLabel lblHelpName = new JLabel("Name : 상품명");
+		JLabel lblHelpName = new JLabel("★ Name : 상품명");
 		lblHelpName.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpName);
 
@@ -160,7 +162,7 @@ public class ManagementOfEdit extends JFrame {
 		lblHelpColor.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpColor);
 
-		JLabel lblHelpCategory = new JLabel("Category : 상품 카테고리(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
+		JLabel lblHelpCategory = new JLabel("Category : 분류 숫자만 입력(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
 		lblHelpCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpCategory);
 
@@ -168,7 +170,7 @@ public class ManagementOfEdit extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblNewLabel_1);
 
-		JLabel lblHelpImage = new JLabel("Image : 상품 이미지경로 (자동으로 설정 됩니다.)");
+		JLabel lblHelpImage = new JLabel("★ Image : 상품 이미지경로 (자동으로 설정 됩니다.)");
 		lblHelpImage.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpImage);
 
@@ -198,9 +200,29 @@ public class ManagementOfEdit extends JFrame {
 					tfName.setText(loadItem.getName());
 					tfSize.setText(loadItem.getSize());
 					tfColor.setText(loadItem.getColor());
-					tfCategory.setText(loadItem.getCategory());
+					int numCategory = 0;
+					if (loadItem.getCategory() != null) {
+						if (loadItem.getCategory().equals("top")) {
+							numCategory = 1;
+							tfCategory.setText(String.valueOf(numCategory));
+						} else if (loadItem.getCategory().equals("bottom")) {
+							numCategory = 2;
+							tfCategory.setText(String.valueOf(numCategory));
+						} else if (loadItem.getCategory().equals("bag")) {
+							numCategory = 3;
+							tfCategory.setText(String.valueOf(numCategory));
+						} else if (loadItem.getCategory().equals("shoes")) {
+							numCategory = 4;
+							tfCategory.setText(String.valueOf(numCategory));
+						} else if (loadItem.getCategory().equals("acc")) {
+							numCategory = 5;
+							tfCategory.setText(String.valueOf(numCategory));
+						}
+					} else {
+						tfCategory.setText("");
+					}
 					tfSubCategory.setText(loadItem.getSubCategory());
-					tfImage.setText("");
+					lbltfImage.setText("DB에 등록된 이미지");
 					tfSeason.setText(loadItem.getSeason());
 					lblImageDisplay.setIcon(scaleImage(convertedImage));
 				} catch (SQLException e1) {
@@ -219,7 +241,7 @@ public class ManagementOfEdit extends JFrame {
 				tfColor.setText("");
 				tfCategory.setText("");
 				tfSubCategory.setText("");
-				tfImage.setText("");
+				lbltfImage.setText("");
 				tfSeason.setText("");
 				lblImageDisplay.setIcon(null);
 			}
@@ -230,26 +252,33 @@ public class ManagementOfEdit extends JFrame {
 		JFileChooser chooser = new JFileChooser();
 
 		btLoad.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = chooser.showOpenDialog(pnlMain);
 
 				if (result == JFileChooser.APPROVE_OPTION) {
-					String path = chooser.getSelectedFile().getAbsolutePath();
+					path = chooser.getSelectedFile().getAbsolutePath();
 					ImageIcon image = new ImageIcon(path);
 					lblImageDisplay.setIcon(scaleImage(image));
-					tfImage.setText(path);
+					lbltfImage.setText(path);
+					File imageBlob = new File(path);
+					try {
+						dao.updateImage(dao.read(Management.itemList.get(0).getId()).getId(), imageBlob);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
 
-		// Regist버튼 => 수정값으로 DB의 데이터 바꾸기.
-		btnRegist.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+//		// Regist버튼 => 수정값으로 DB의 데이터 바꾸기.
+//		btnRegist.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}
+//		});
 	}
 
 	// 사진 사이즈 조절
