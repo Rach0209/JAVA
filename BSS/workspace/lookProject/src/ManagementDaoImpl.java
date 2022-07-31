@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import kr.co.greenart.dbutil.DBUtil;
 
+
 // All_product 테이블  컬럼
 // product_Name, product_Size, product_Color, product_Category,
 // product_Sub_Category, product_Image, product_Season 
@@ -57,6 +58,8 @@ public class ManagementDaoImpl implements ManagementDao {
 			pstmt.setString(7, season);
 
 			return pstmt.executeUpdate();
+		} catch (java.lang.NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "1~5의 숫자만 입력해주세요.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "사진은 필수 조건입니다.");

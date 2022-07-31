@@ -256,7 +256,8 @@ public class Management extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if (!registWindow.tfName.getText().isEmpty() && !registWindow.tfImageUrl.getText().isEmpty()) {
+						if (!registWindow.tfName.getText().isEmpty() && !registWindow.tfImageUrl.getText().isEmpty()
+								&& !registWindow.tfCategory.getText().isEmpty()) {
 							name = registWindow.tfName.getText();
 							if (name.equals("")) {
 								name = "미지정";
@@ -283,8 +284,14 @@ public class Management extends JFrame {
 								} else {
 									category = "임의분류";
 								}
+							} else if (registWindow.tfCategory.getText().equals("1")
+									|| registWindow.tfCategory.getText().equals("2")
+									|| registWindow.tfCategory.getText().equals("3")
+									|| registWindow.tfCategory.getText().equals("4")
+									|| registWindow.tfCategory.getText().equals("5")) {
+								JOptionPane.showMessageDialog(registWindow, "1~5 숫자만 입력해주세요.");
 							}
-							subCategory = registWindow.tfSubCategory.getText();
+								subCategory = registWindow.tfSubCategory.getText();
 							if (subCategory.equals("")) {
 								subCategory = "미지정";
 							}
@@ -310,6 +317,8 @@ public class Management extends JFrame {
 							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
 						}
 
+					} catch (NumberFormatException e1) {
+						JOptionPane.showMessageDialog(null, "1~5의 숫자만 입력해주세요.");
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -328,7 +337,8 @@ public class Management extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						if (!editWindow.tfName.getText().isEmpty() && !editWindow.lbltfImage.getText().isEmpty()) {
+						if (!editWindow.tfName.getText().isEmpty() && !editWindow.lbltfImage.getText().isEmpty()
+								&& !editWindow.tfCategory.getText().isEmpty()) {
 							number = dao.read(itemList.get(0).getId()).getId();
 							name = editWindow.tfName.getText();
 							if (name.equals("")) {
@@ -372,6 +382,8 @@ public class Management extends JFrame {
 						} else {
 							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
 						}
+					} catch (NumberFormatException e1) {
+						JOptionPane.showMessageDialog(null, "1~5의 숫자만 입력해주세요.");
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -471,6 +483,10 @@ public class Management extends JFrame {
 		btDelete.addActionListener(deleteAction);
 		// ------------------------------------------------
 		scrollPnl.getVerticalScrollBar().setUnitIncrement(20);
+		Management.this.setResizable(false);
+		registWindow.setResizable(false);
+		editWindow.setResizable(false);
+
 	}
 
 	public static void main(String[] args) {

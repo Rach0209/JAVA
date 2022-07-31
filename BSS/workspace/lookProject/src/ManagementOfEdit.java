@@ -76,7 +76,7 @@ public class ManagementOfEdit extends JFrame {
 		pnlRegiEditArea.setBounds(425, 356, 397, 271);
 		pnlMain.add(pnlRegiEditArea);
 
-		JLabel lblName = new JLabel("Name");
+		JLabel lblName = new JLabel("★Name");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("궁서체", Font.ITALIC, 24));
 
@@ -94,13 +94,13 @@ public class ManagementOfEdit extends JFrame {
 
 		tfColor = new JTextField();
 
-		JLabel lblCategory = new JLabel("Category");
+		JLabel lblCategory = new JLabel("★Category");
 		lblCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategory.setFont(new Font("궁서체", Font.ITALIC, 24));
 
 		tfCategory = new JTextField();
 
-		JLabel lblImage = new JLabel("Image");
+		JLabel lblImage = new JLabel("★Image");
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImage.setFont(new Font("궁서체", Font.ITALIC, 24));
 
@@ -162,7 +162,7 @@ public class ManagementOfEdit extends JFrame {
 		lblHelpColor.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpColor);
 
-		JLabel lblHelpCategory = new JLabel("Category : 분류 숫자만 입력(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
+		JLabel lblHelpCategory = new JLabel("★Category : 분류 숫자만 입력(1.상의, 2.하의, 3.가방, 4.신발, 5.악세)");
 		lblHelpCategory.setHorizontalAlignment(SwingConstants.CENTER);
 		pnlHelp.add(lblHelpCategory);
 
