@@ -33,7 +33,7 @@ public class ManagementOfEdit extends JFrame {
 	protected JTextField tfCategory;
 	protected JLabel lbltfImage;
 	protected JTextField tfSeason;
-	private ManagementDaoImpl dao = new ManagementDaoImpl();
+	protected AdminDaoImpl dao = new AdminDaoImpl();
 	protected JTextField tfSubCategory;
 	protected JButton btnRegist;
 	protected String path;

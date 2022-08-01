@@ -32,7 +32,7 @@ public class ManagementOfRegist extends JFrame {
 	protected JTextField tfSubCategory;
 	protected JTextField tfImageUrl;
 	protected JTextField tfSeason;
-	protected ManagementDaoImpl dao = new ManagementDaoImpl();
+	protected AdminDaoImpl dao = new AdminDaoImpl();
 	protected JButton btnRegist;
 
 	ManagementOfRegist() {

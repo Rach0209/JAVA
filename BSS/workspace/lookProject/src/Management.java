@@ -1,5 +1,8 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,11 +35,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class Management extends JFrame {
-	private ManagementDaoImpl dao = new ManagementDaoImpl();
+	private AdminDaoImpl dao = new AdminDaoImpl();
 
 	// 등록창과 수정창 생성자. 만일을 대비해 두 개를 따로 생성. 오류방지목적으로 동시 실행불가 처리해놓음.
 	ManagementOfRegist registWindow = new ManagementOfRegist();
@@ -55,6 +62,8 @@ public class Management extends JFrame {
 	// ----------------------------------------
 
 	private int count;
+
+	private int push = 1;
 
 	// 사진 사이즈 조절
 	public ImageIcon scaleImage(ImageIcon icon, int w, int h) {
@@ -76,22 +85,32 @@ public class Management extends JFrame {
 
 	Management() {
 		super("관리자용");
+		Color color = new Color(200, 221, 242);
 		// 의상관리 타이틀 ---
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JPanel pnlTop = new JPanel();
+		pnlTop.setBorder(new LineBorder(color));
+		pnlTop.setBackground(Color.WHITE);
 		panel.add(pnlTop);
 
 		JLabel lblTitle = new JLabel("의상관리");
+		lblTitle.setBackground(Color.WHITE);
 		lblTitle.setFont(new Font("휴먼편지체", Font.PLAIN, 40));
 		pnlTop.add(lblTitle);
 		// -------------
 
 		// 데이터 목록 보이는 패널
 		JPanel pnlMain = new JPanel();
+		pnlMain.setBorder(new LineBorder(color));
+		pnlMain.setEnabled(false);
+		pnlMain.setBackground(Color.WHITE);
 		JPanel pnlData = new JPanel();
+		pnlData.setFont(new Font("굴림", Font.PLAIN, 16));
+		pnlData.setBackground(Color.WHITE);
 		pnlData.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		// 체크박스 일단 100개 생성; 나중에 데이터 길이만큼 불러옴.
@@ -99,27 +118,75 @@ public class Management extends JFrame {
 		pnlBtn.setBounds(250, 250, 250, 250);
 
 		JPanel pnlBtnManage = new JPanel();
+		pnlBtnManage.setBorder(new LineBorder(color));
+		pnlBtnManage.setBackground(Color.WHITE);
 		panel.add(pnlBtnManage);
-		pnlBtnManage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnlBtnManage.setLayout(new GridLayout(0, 6, 0, 0));
 
-		JButton btnAllCheck = new JButton("전체 선택");
+		JButton btnRefresh = new JButton();
+		btnRefresh.setToolTipText("새로고침");
+		pnlBtnManage.add(btnRefresh);
+		ImageIcon refresh = new ImageIcon(".\\resource\\refresh.png");
+		btnRefresh.setMargin(new Insets(2, 4, 2, 4));
+		btnRefresh.setIcon(refresh);
+		settingBtn(btnRefresh);
+
+		btnRefresh.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 창 새로고치기
+				Management.this.dispose();
+				new Management().setVisible(true);
+			}
+		});
+
+		JButton btnAllCheck = new JButton();
+		btnAllCheck.setFocusPainted(false);
+		ImageIcon allCheckIcon = new ImageIcon(".\\resource\\allCheck.png");
+		btnAllCheck.setIcon(allCheckIcon);
+//		btnAllCheck.setFont(new Font("굴림", Font.PLAIN, 12));
 		btnAllCheck.setMargin(new Insets(2, 4, 2, 4));
-		btnAllCheck.setFont(new Font("굴림", Font.PLAIN, 12));
+		btnAllCheck.setToolTipText("전체선택");
+		settingBtn(btnAllCheck);
 		pnlBtnManage.add(btnAllCheck);
 
-		JButton btnAllUnCheck = new JButton("전체 해제");
-		btnAllUnCheck.setFont(new Font("Gulim", Font.PLAIN, 12));
+		JButton btnAllUnCheck = new JButton();
+		btnAllUnCheck.setFocusPainted(false);
+		ImageIcon allUnCheckIcon = new ImageIcon(".\\resource\\allUnCheck.png");
+		btnAllUnCheck.setIcon(allUnCheckIcon);
+//		btnAllUnCheck.setFont(new Font("Gulim", Font.PLAIN, 12));
 		btnAllUnCheck.setMargin(new Insets(2, 4, 2, 4));
+		settingBtn(btnAllUnCheck);
+		btnAllUnCheck.setToolTipText("전체해제");
 		pnlBtnManage.add(btnAllUnCheck);
-		JButton btConfirm = new JButton("등록");
-		btConfirm.setMargin(new Insets(12, 22, 12, 22));
+
+		JButton btConfirm = new JButton();
+		btConfirm.setFocusPainted(false);
+		ImageIcon registIcon = new ImageIcon(".\\resource\\add.png");
+		btConfirm.setIcon(registIcon);
+		btConfirm.setMargin(new Insets(2, 4, 2, 4));
+		btConfirm.setToolTipText("등록하기");
+		settingBtn(btConfirm);
 		pnlBtnManage.add(btConfirm);
-		JButton btEdit = new JButton("수정");
+
+		JButton btEdit = new JButton();
+		btEdit.setFocusPainted(false);
+		ImageIcon editIcon = new ImageIcon(".\\resource\\edit.png");
+		btEdit.setIcon(editIcon);
 		btEdit.setEnabled(false);
-		btEdit.setMargin(new Insets(12, 22, 12, 22));
+		btEdit.setMargin(new Insets(2, 4, 2, 4));
+		btEdit.setToolTipText("수정하기");
+		settingBtn(btEdit);
 		pnlBtnManage.add(btEdit);
-		JButton btDelete = new JButton("삭제");
-		btDelete.setMargin(new Insets(12, 22, 12, 22));
+
+		JButton btDelete = new JButton();
+		btDelete.setFocusPainted(false);
+		ImageIcon deleteIcon = new ImageIcon(".\\resource\\delete.png");
+		btDelete.setIcon(deleteIcon);
+		btDelete.setMargin(new Insets(2, 4, 2, 4));
+		btDelete.setToolTipText("삭제하기");
+		settingBtn(btDelete);
 		pnlBtnManage.add(btDelete);
 
 		// 관리자 데이터 확인용
@@ -173,6 +240,7 @@ public class Management extends JFrame {
 				pnlData.add(lblDataLines[count]);
 				ckBox.setMargin(new Insets(7, 2, 7, 2));
 				checkBoxList.add(ckBox);
+				ckBox.setBackground(Color.WHITE);
 
 //				lblDataList.add(lblDataLine[i]);
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -200,8 +268,8 @@ public class Management extends JFrame {
 						int selectNum = index;
 						if (e.getStateChange() == ItemEvent.SELECTED) {
 							checkedList.add(selectNum);
-//							System.out.println("전체 체크 박스인덱스 " + checkedList);
-//							System.out.println("체크한 번호 " + checkedList + "+ 1 = (상품번호)");
+							System.out.println("전체 체크 박스인덱스 " + checkedList);
+							System.out.println("체크한 번호 " + intList.get(checkedList.get(0)) + " ← 상품번호");
 						} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 							checkedList.remove(checkedList.indexOf(selectNum));
 						}
@@ -284,14 +352,8 @@ public class Management extends JFrame {
 								} else {
 									category = "임의분류";
 								}
-							} else if (registWindow.tfCategory.getText().equals("1")
-									|| registWindow.tfCategory.getText().equals("2")
-									|| registWindow.tfCategory.getText().equals("3")
-									|| registWindow.tfCategory.getText().equals("4")
-									|| registWindow.tfCategory.getText().equals("5")) {
-								JOptionPane.showMessageDialog(registWindow, "1~5 숫자만 입력해주세요.");
 							}
-								subCategory = registWindow.tfSubCategory.getText();
+							subCategory = registWindow.tfSubCategory.getText();
 							if (subCategory.equals("")) {
 								subCategory = "미지정";
 							}
@@ -310,9 +372,7 @@ public class Management extends JFrame {
 							// 체크박스 선택할때 숫자
 							count++;
 							registWindow.dispose();
-							// 창 새로고치기
-							Management.this.dispose();
-							new Management().setVisible(true);
+							JOptionPane.showMessageDialog(Management.this, "등록되었습니다.");
 						} else {
 							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
 						}
@@ -377,8 +437,9 @@ public class Management extends JFrame {
 							}
 							dao.update(number, name, size, color, category, subCategory, season);
 							editWindow.dispose();
-							Management.this.dispose();
-							new Management().setVisible(true);
+//							Management.this.dispose();
+//							new Management().setVisible(true);
+							JOptionPane.showMessageDialog(Management.this, "수정되었습니다.");
 						} else {
 							JOptionPane.showMessageDialog(registWindow, "★표시된 값은 꼭 입력해주세요.(이미지는 불러오기만 하면됩니다.)");
 						}
@@ -396,19 +457,14 @@ public class Management extends JFrame {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
-//		// lblData 데이터정보 호출테스트.
-//		for (JLabel c : lblDataList) {
-//			System.out.println(c.getText());
-//		}
-//		// testing-------------------------
-
 		pnlMain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		pnlMain.add(pnlData);
 		pnlData.setLayout(new BoxLayout(pnlData, BoxLayout.Y_AXIS));
+
 		pnlBtn.setLayout(new GridLayout(0, 3, 0, 0));
 		JScrollPane scrollPnl = new JScrollPane(pnlMain);
+		scrollPnl.setBackground(Color.WHITE);
 
 		getContentPane().add(scrollPnl);
 
@@ -440,8 +496,8 @@ public class Management extends JFrame {
 				itemList.clear();
 				try {
 					// itemList에 체크박스 선택한 객체 담기.
-//					System.out.println(
-//							"itemList에 체크박스 선택한 객체 담기." + dao.read(intList.get(checkedList.get(0))).toString());
+					System.out.println(
+							"itemList에 체크박스 선택한 객체 담기." + dao.read(intList.get(checkedList.get(0))).toString());
 
 					itemList.add(dao.read(intList.get(checkedList.get(0))));
 //					System.out.println("아이템리스트 전체보기 " + itemList);
@@ -467,11 +523,13 @@ public class Management extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					for (int j = 0; j < checkedList.size(); j++) {
-//						System.out.println("상품번호 : " + (checkedList.get(j) + 1) + "의 데이터를 지움");
-						dao.delete(checkedList.get(j) + 1);
+						System.out.println("상품번호 : " + (intList.get(checkedList.get(j))) + "의 데이터를 지움");
+						dao.delete(intList.get(checkedList.get(j)));
 					}
-					Management.this.dispose();
-					new Management().setVisible(true);
+					// 너무 느려서 새로고침 없앰.
+//					Management.this.dispose();
+//					new Management().setVisible(true);
+					JOptionPane.showMessageDialog(Management.this, "삭제되었습니다. 확인 → 새로고침.");
 				} catch (SQLIntegrityConstraintViolationException e2) {
 					JOptionPane.showMessageDialog(Management.this, "다른 곳에서 사용중인 옷입니다. 참조를 없애고 다시 시도해주세요.");
 //					System.out.println("참조 중인 아이템");
@@ -487,6 +545,15 @@ public class Management extends JFrame {
 		registWindow.setResizable(false);
 		editWindow.setResizable(false);
 
+	}
+
+	// 버튼 모양 세팅
+	public void settingBtn(JButton btn) {
+//		btn.setBounds(102, 325, 69, 28);
+		btn.setPreferredSize(new Dimension(45, 32));
+		btn.setContentAreaFilled(false);// 버튼 안 색 채우기 안함
+		btn.setBorderPainted(false);// 버튼 외각선 안 보이게
+		btn.setFocusPainted(false);// 버튼 눌렀을 때 외곽선 안 보이게
 	}
 
 	public static void main(String[] args) {
